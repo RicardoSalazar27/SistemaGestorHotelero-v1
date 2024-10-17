@@ -4,17 +4,21 @@ namespace Model;
 
 class Usuario extends ActiveRecord {
     protected static $tabla = 'usuarios';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'email', 'password', 'confirmado', 'token', 'admin'];
+    protected static $columnasDB = ['id', 'nombre', 'apellido', 'direccion', 'email', 'password', 'fecha_nacimiento', 'rol_id', 'estatus', 'fecha_creacion', 'ultimo_acceso', 'confirmado'];
 
     public $id;
     public $nombre;
     public $apellido;
+    public $direccion;
     public $email;
     public $password;
     public $password2;
+    public $fecha_nacimiento;
+    public $rol_id;
+    public $estatus;
+    public $fecha_creacion;
+    public $ultimo_acceso;
     public $confirmado;
-    public $token;
-    public $admin;
 
     public $password_actual;
     public $password_nuevo;
@@ -25,12 +29,16 @@ class Usuario extends ActiveRecord {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
+        $this->direccion = $args['direccion'] ?? '';
         $this->email = $args['email'] ?? '';
         $this->password = $args['password'] ?? '';
         $this->password2 = $args['password2'] ?? '';
+        $this->fecha_nacimiento = $args['fecha_nacimiento'] ?? '';
+        $this->rol_id = $args['rol_id'] ?? 2;
+        $this->estatus = $args['estatus'] ?? 1;
+        $this->fecha_creacion = $args['fecha_creacion'] ?? '';
+        $this->ultimo_acceso = $args['ultimo_acceso'] ?? '';
         $this->confirmado = $args['confirmado'] ?? 0;
-        $this->token = $args['token'] ?? '';
-        $this->admin = $args['admin'] ?? '';
     }
 
     // Validar el Login de Usuarios
@@ -56,6 +64,9 @@ class Usuario extends ActiveRecord {
         if(!$this->apellido) {
             self::$alertas['error'][] = 'El Apellido es Obligatorio';
         }
+        if(!$this->direccion) {
+            self::$alertas['error'][] = 'La Direccion es Obligatorio';
+        }
         if(!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';
         }
@@ -67,6 +78,9 @@ class Usuario extends ActiveRecord {
         }
         if($this->password !== $this->password2) {
             self::$alertas['error'][] = 'Los password son diferentes';
+        }
+        if(!$this->fecha_nacimiento) {
+            self::$alertas['error'][] = 'La Fecha de nacimiento es Obligatoria';
         }
         return self::$alertas;
     }
@@ -117,7 +131,7 @@ class Usuario extends ActiveRecord {
     }
 
     // Generar un Token
-    public function crearToken() : void {
-        $this->token = uniqid();
-    }
+    // public function crearToken() : void {
+    //     $this->token = uniqid();
+    // }
 }
