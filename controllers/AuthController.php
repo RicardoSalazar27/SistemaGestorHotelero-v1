@@ -20,9 +20,15 @@ class AuthController {
             if(empty($alertas)) {
                 // Verificar quel el usuario exista
                 $usuario = Usuario::where('email', $usuario->email);
-                if(!$usuario || !$usuario->confirmado ) {
-                    Usuario::setAlerta('error', 'El Usuario No Existe o no esta confirmado');
-                } else {
+                
+                if (!$usuario) {
+                    Usuario::setAlerta('error', 'El Usuario No Existe');
+                } elseif (!$usuario->confirmado) {
+                    Usuario::setAlerta('error', 'El Usuario No está confirmado');
+                } elseif (!$usuario->estatus) {
+                    Usuario::setAlerta('error', 'El Usuario No está activo');
+                }
+                 else {
                     // El Usuario existe
                     if( password_verify($_POST['password'], $usuario->password) ) {
                         
@@ -32,7 +38,15 @@ class AuthController {
                         $_SESSION['nombre'] = $usuario->nombre;
                         $_SESSION['apellido'] = $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
-                        $_SESSION['admin'] = $usuario->admin ?? null;
+                        $_SESSION['rol_id'] = $usuario->rol_id;
+
+                        if($usuario->rol_id === '1'){
+                            header('Location: /admin/dashboard/index');
+                        } elseif($usuario->rol_id === '2'){
+                            debuguear('Este usuario ya esta autenticado, y es empleado general');
+                        } elseif($usuario->rol_id === '3'){
+                            debuguear('Este usuario ya esta autenticado, y es limpieza');
+                        }
                         
                     } else {
                         Usuario::setAlerta('error', 'Password Incorrecto');
