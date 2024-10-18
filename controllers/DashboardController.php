@@ -10,7 +10,7 @@ class DashboardController {
     public static function index(Router $router) {
 
         is_auth();
-        tiene_rol('1');
+        //tiene_rol('1');
 
         $usuario = Usuario::where('email', $_SESSION['email']);
         $informacion_hotel = InformacionHotel::get(1);

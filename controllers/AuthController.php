@@ -40,12 +40,11 @@ class AuthController {
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['rol_id'] = $usuario->rol_id;
 
-                        if($usuario->rol_id === '1'){
+                        if($usuario->rol_id === '1' || $usuario->rol_id === '2' || $usuario->rol_id === '3'){
+                            //debuguear($_SESSION);
                             header('Location: /admin/dashboard/index');
-                        } elseif($usuario->rol_id === '2'){
-                            debuguear('Este usuario ya esta autenticado, y es empleado general');
-                        } elseif($usuario->rol_id === '3'){
-                            debuguear('Este usuario ya esta autenticado, y es limpieza');
+                        } else{
+                            header('Location: /');
                         }
                         
                     } else {
