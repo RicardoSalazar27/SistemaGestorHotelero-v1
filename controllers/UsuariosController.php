@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use GuzzleHttp\Psr7\Header;
 use Model\InformacionHotel;
 use Model\Usuario;
 use MVC\Router;
@@ -28,5 +29,17 @@ class UsuariosController {
             'informacion' => $informacion_hotel,
             'nombre_hotel' => $nombre_hotel
         ]);
+    }
+
+    public static function eliminar(){
+
+        is_auth();
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $usuario = Usuario::find($_POST['id']);
+            $usuario->eliminar();
+
+            header('Location: /admin/usuarios');
+        }
     }
 }

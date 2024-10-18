@@ -38,6 +38,7 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 $router->get('/admin/index', [DashboardController::class, 'index']);
 $router->get('/admin/configuracion/informacion', [informacionController::class, 'index']);
 $router->get('/admin/usuarios', [UsuariosController::class, 'index']);
+$router->post('/admin/usuarios/eliminar', [UsuariosController::class, 'eliminar']);
 
 
 // API'S

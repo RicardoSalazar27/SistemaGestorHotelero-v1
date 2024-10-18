@@ -1,14 +1,26 @@
 (function () {
-    let dataTable;   // Variable para DataTable
-    let dataTableInit = false;  // Controla si la DataTable ya fue inicializada
+    let dataTable;
+    let dataTableInit = false;
 
-    // Aquí puedes agregar más opciones de DataTables si es necesario
+    // Opciones de DataTables
     const dataTableOption = {
         destroy: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json',
         }
     }
+
+    // Diccionarios para roles y estatus
+    const roles = {
+        1: 'Administrador',
+        2: 'Empleado General',
+        3: 'Limpieza'
+    };
+
+    const estatus = {
+        1: 'Activo',
+        0: 'Inactivo'
+    };
 
     // Función para inicializar la DataTable
     async function initDataTable() {
@@ -49,8 +61,8 @@
                     <td>${usuario.apellido}</td>
                     <td>${usuario.direccion}</td>
                     <td>${usuario.email}</td>
-                    <td>${usuario.rol_id}</td>
-                    <td>${usuario.estatus}</td>
+                    <td>${roles[usuario.rol_id]}</td> <!-- Muestra el rol legible -->
+                    <td>${estatus[usuario.estatus]}</td> <!-- Muestra el estatus legible -->
                     <td>${usuario.fecha_creacion}</td>
                     <td>
                         <!-- Botón de editar -->
@@ -68,7 +80,6 @@
                     </td>
                 `;
 
-
                 // Agrega la fila a la tabla
                 tableBody.appendChild(row);
             });
@@ -80,6 +91,6 @@
 
     // Ejecuta la función cuando la ventana cargue
     window.addEventListener('load', async () => {
-        await initDataTable();  // Llama a la función para inicializar la tabla cuando todo esté listo
+        await initDataTable();
     });
 })();
