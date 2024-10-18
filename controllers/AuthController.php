@@ -42,7 +42,7 @@ class AuthController {
 
                         if($usuario->rol_id === '1' || $usuario->rol_id === '2' || $usuario->rol_id === '3'){
                             //debuguear($_SESSION);
-                            header('Location: /admin/dashboard/index');
+                            header('Location: /admin/index');
                         } else{
                             header('Location: /');
                         }
