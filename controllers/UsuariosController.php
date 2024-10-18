@@ -6,7 +6,7 @@ use Model\InformacionHotel;
 use Model\Usuario;
 use MVC\Router;
 
-class informacionController {
+class UsuariosController {
     public static function index(Router $router) {
 
         is_auth();
@@ -21,8 +21,8 @@ class informacionController {
         $nombre_hotel = $informacion_hotel->nombre;
 
         // Render a la vista 
-        $router->render('admin/configuracion/informacion/index', [
-            'titulo' => 'Informacion Del Hotel',
+        $router->render('admin/usuarios/index', [
+            'titulo' => 'Usuarios',
             'alertas' => $alertas,
             'usuario' => $usuario,
             'informacion' => $informacion_hotel,

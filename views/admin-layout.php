@@ -6,11 +6,15 @@
     <title>AdminLTE 3 | <?php echo $titulo;?></title>
 
     <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="/build/resources/plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/build/resources/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/build/resources/plugins/fontawesome-free/css/all.min.css">
+    <!-- Font Awesome (versión 6.0.0-beta3) para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AdminLTE CSS principal -->
+    <link rel="stylesheet" href="/build/resources/dist/css/adminlte.min.css">
+    <!-- DataTables Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
 
 </head>
 
@@ -40,11 +44,18 @@
         <?php include_once __DIR__ .'/templates/footer.php'; ?>
     </div>
 
+    <!-- Personalizados -->
+    <script src="/build/js/bundle.min.js"></script>
+
     <!-- jQuery -->
     <script src="/build/resources/plugins/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap 4 -->
     <script src="/build/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
 
     <!-- AdminLTE App para la versión 3.1.0 -->
     <script src="/build/resources/dist/js/adminlte.min.js"></script>

@@ -2,10 +2,13 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\APIUsuarios;
 use MVC\Router;
 use Controllers\AuthController;
 use Controllers\DashboardController;
+use Controllers\HabitacionesController;
 use Controllers\informacionController;
+use Controllers\UsuariosController;
 
 $router = new Router();
 
@@ -34,6 +37,10 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 
 $router->get('/admin/index', [DashboardController::class, 'index']);
 $router->get('/admin/configuracion/informacion', [informacionController::class, 'index']);
+$router->get('/admin/usuarios', [UsuariosController::class, 'index']);
 
+
+// API'S
+$router->get('/api/usuarios/listar', [APIUsuarios::class, 'listar']);
 
 $router->comprobarRutas();
