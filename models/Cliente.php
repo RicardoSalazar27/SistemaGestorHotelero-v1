@@ -18,7 +18,7 @@ class Cliente extends ActiveRecord{
     public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
-        $this->apellido = $args['apellido'] ?? '';
+        $this->apellidos = $args['apellidos'] ?? '';
         $this->correo = $args['correo'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
         $this->documento_identidad = $args['documento_identidad'] ?? '';
