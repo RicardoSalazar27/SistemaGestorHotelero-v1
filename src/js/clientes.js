@@ -8,6 +8,37 @@
         language: {
             url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json',
         },
+        //dom: 'Bfrtip', // Agrega la sección para los botones
+        dom: '<"row mb-2"<"d-flex justify-content-start col-sm-6"f><"d-flex justify-content-end col-sm-6"B>>' +  // B-> botones, F -> búsqueda
+        '<"row"<"col-sm-12"tr>>' +             // T -> tabla
+         '<"row d-flex justify-content-between"<"col d-flex justify-content-start"l><"col d-flex justify-content-center"i><"col d-flex justify-content-end"p>>' ,  // L-> de entradas  - I -> número de resultados por página, P-> paginador
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa-solid fa-file-excel"></i>',
+                titleAttr: 'Exportar a Excel',
+                className: 'btn btn-success'
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="fa-solid fa-file-pdf"></i>',
+                titleAttr: 'Exportar a PDF',
+                className: 'btn btn-danger'
+            },
+            {
+                extend: 'csvHtml5',
+                text: '<i class="fa-solid fa-file-csv"></i>',
+                titleAttr: 'Exportar a CSV',
+                className: 'btn btn-primary'
+            },
+            {
+                extend: 'print',
+                text: '<i class="fa-solid fa-print"></i>',
+                titleAttr: 'Imprimir',
+                className: 'btn btn-info'
+            }
+
+        ],
         columnDefs: [
             { orderable: false, targets: [3, 4, 7] }  // Desactiva la ordenación en la columna 8 (índice 7)
         ]

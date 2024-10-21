@@ -22,13 +22,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        <h1 class="h4 mb-0">Catalogo de Clientes</h1>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-4">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <h1 class="h4 mb-0">Catalogo de Clientes</h1>
                             <button class="btn btn-primary ">Agregar Nuevo</button>
                         </div>
+                    </div>
+                    <div class="card-body">
                         <table id="datatable_clients" class="table table-striped">
                         <thead>
                             <tr>
