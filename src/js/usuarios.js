@@ -3,15 +3,15 @@
     let dataTableInit = false;
 
     // Opciones de DataTables
-const dataTableOption = {
-    destroy: true,
-    language: {
-        url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json',
-    },
-    columnDefs: [
-        { orderable: false, targets: [3, 4, 8] }  // Desactiva la ordenación en la columna 8 (índice 7)
-    ]
-};
+    const dataTableOption = {
+        destroy: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json',
+        },
+        columnDefs: [
+            { orderable: false, targets: [3, 4, 8] }  // Desactiva la ordenación en la columna 8 (índice 7)
+        ]
+    };
 
 
     // Diccionarios para roles y estatus

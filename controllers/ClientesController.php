@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Cliente;
 use Model\InformacionHotel;
 use Model\Usuario;
 use MVC\Router;
@@ -38,6 +39,27 @@ class ClientesController {
             $usuario->eliminar();
 
             header('Location: /admin/usuarios');
+        }
+    }
+
+    public static function crear(){
+        is_auth();
+
+        $cliente = new Cliente;
+        //debuguear($_POST);
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $existecliente = Cliente::where('correo', $_POST['correo']);
+            if($existecliente){
+                echo 'si existe cliente';
+            } else{
+                $cliente -> sincronizar($_POST);
+                $resultado = $cliente->guardar();
+
+                if($resultado){
+                    debuguear('Guardado con exito!');
+                }
+            }
         }
     }
 }

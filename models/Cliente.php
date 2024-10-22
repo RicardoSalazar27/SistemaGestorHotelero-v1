@@ -5,7 +5,7 @@ namespace Model;
 class Cliente extends ActiveRecord{
 
     public static $tabla = 'clientes';
-    public static $columnasDB = ['id', 'nombre', 'apellido', 'correo', 'telefono', 'documento_identidad', 'fecha_nacimiento'];
+    public static $columnasDB = ['id', 'nombre', 'apellidos', 'correo', 'telefono', 'documento_identidad', 'fecha_nacimiento'];
 
     public $id;
     public $nombre;
