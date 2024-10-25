@@ -51,4 +51,4 @@
     </div>
 </section>
 
-<?php //include_once __DIR__ . '/modales.php';?>
+<?php include_once __DIR__ . '/modales.php';?>

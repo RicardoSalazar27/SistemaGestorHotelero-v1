@@ -2,6 +2,9 @@
     let dataTable;
     let dataTableInit = false;
 
+    const clientes = [];
+    const cliente = [];
+
     // Opciones de DataTables
     const dataTableOption = {
         destroy: true,
@@ -43,6 +46,10 @@
             { orderable: false, targets: [3, 4, 7] }  // Desactiva la ordenación en la columna 8 (índice 7)
         ]
     };
+
+
+    //Ejecutar Funciones
+    initDataTable();
 
     // Función para inicializar la DataTable
     async function initDataTable() {
@@ -92,90 +99,52 @@
                         </button>
 
                         <!-- Modal Editar Cliente -->
-                        <div class="modal fade" id="editarClienteModal${cliente.id}" tabindex="-1" role="dialog" aria-labelledby="clientesModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="clientesModalLabel">Editar Cliente</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="clientes/editar?id=${cliente.id}" method="POST">
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input 
-                                            type="text"
-                                            class="form-control"
-                                            id="nombre"
-                                            name="nombre"
-                                            value="${cliente.nombre}"
-                                        />
+                        <div class="modal fade modal-editarCliente" id="editarClienteModal${cliente.id}" tabindex="-1" role="dialog" aria-labelledby="clientesModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="clientesModalLabel">Editar Cliente</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="apellidos">Apellidos</label>
-                                        <input 
-                                            type="text"
-                                            class="form-control"
-                                            id="apellidos"
-                                            name="apellidos"
-                                            value="${cliente.apellidos}"
-                                        />
+                                    <div class="modal-body">
+                                        <form action="clientes/editar?id=${cliente.id}" method="POST">
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre</label>
+                                                <input type="text" class="form-control" id="nombre${cliente.id}" name="nombre" value="${cliente.nombre}" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="apellidos">Apellidos</label>
+                                                <input type="text" class="form-control" id="apellidos${cliente.id}" name="apellidos" value="${cliente.apellidos}" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="correo">Correo</label>
+                                                <input type="email" class="form-control" id="correo${cliente.id}" name="correo" value="${cliente.correo}" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="telefono">Telefono</label>
+                                                <input type="text" class="form-control" id="telefono${cliente.id}" name="telefono" value="${cliente.telefono}" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="documento_identidad">DNI</label>
+                                                <input type="text" class="form-control" id="documento_identidad${cliente.id}" name="documento_identidad" value="${cliente.documento_identidad}" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                                                <input type="date" class="form-control" id="fecha_nacimiento${cliente.id}" name="fecha_nacimiento" value="${cliente.fecha_nacimiento}" />
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary btn-actualizarCliente" data-id="${cliente.id}">Guardar</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="correo">Correo</label>
-                                        <input 
-                                            type="email"
-                                            class="form-control"
-                                            id="correo"
-                                            name="correo"
-                                            value="${cliente.correo}"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="telefono">Telefono</label>
-                                        <input 
-                                            type="text"
-                                            class="form-control"
-                                            id="telefono"
-                                            name="telefono"
-                                            value="${cliente.telefono}"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="documento_identidad">DNI</label>
-                                        <input 
-                                            type="text"
-                                            class="form-control"
-                                            id="documento_identidad"
-                                            name="documento_identidad"
-                                            value="${cliente.documento_identidad}"
-                                        />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                                        <input 
-                                            type="date"
-                                            class="form-control"
-                                            id="fecha_nacimiento"
-                                            name="fecha_nacimiento"
-                                            value="${cliente.fecha_nacimiento}"
-                                        />
-                                    </div>
-
-                                    <!-- Botones en el formulario -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                    </div>
-                                </form>
-                            </div>
+                                </div>
                             </div>
                         </div>
-                        </div>
 
-                        <!-- Formulario para eliminar -->
+                        <!-- Botón de eliminar -->
                         <form method="POST" action="/admin/clientes/eliminar" class="d-inline">
                             <input type="hidden" name="id" value="${cliente.id}">
                             <button class="btn btn-sm btn-danger" type="submit">
@@ -184,19 +153,45 @@
                         </form>
                     </td>
                 `;
-
-
-                // Agrega la fila a la tabla
-                tableBody.appendChild(row);
+                tableBody.appendChild(row); 
             });
+
+            // Delegación para actualizar cliente
+            tableBody.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-actualizarCliente')) {
+                    const clienteId = e.target.getAttribute('data-id');
+                    actualizarCliente(clienteId);
+                }
+            });
+
+            // Subir actualización del cliente
+            function actualizarCliente(id) {
+                const nombre = document.querySelector(`#nombre${id}`).value.trim();
+                const apellidos = document.querySelector(`#apellidos${id}`).value.trim();
+                const correo = document.querySelector(`#correo${id}`).value.trim();
+                const telefono = document.querySelector(`#telefono${id}`).value.trim();
+                const documento_identidad = document.querySelector(`#documento_identidad${id}`).value.trim();
+                const fecha_nacimiento = document.querySelector(`#fecha_nacimiento${id}`).value;
+
+                const cliente = {
+                    nombre,
+                    apellidos,
+                    correo,
+                    telefono,
+                    documento_identidad,
+                    fecha_nacimiento
+                };
+
+                subirActualizacionCliente(cliente);
+            }
+
+            function subirActualizacionCliente(cliente) {
+                console.log(`Se está actualizando el cliente: ${cliente.nombre} ${cliente.apellidos}`);
+            }
 
         } catch (error) {
             console.log(error);
         }
     }
 
-    // Ejecuta la función cuando la ventana cargue
-    window.addEventListener('load', async () => {
-        await initDataTable();
-    });
 })();
