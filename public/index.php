@@ -48,8 +48,11 @@ $router->post('/admin/usuarios/eliminar', [UsuariosController::class, 'eliminar'
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->post('/admin/clientes/crear', [ClientesController::class, 'crear']);
 
+
 // API'S
 $router->get('/api/usuarios/listar', [APIUsuarios::class, 'listar']);
+
 $router->get('/api/clientes/listar', [APIClientes::class, 'listar']);
+$router->post('/api/clientes/actualizar', [APIClientes::class, 'actualizar']);
 
 $router->comprobarRutas();

@@ -109,7 +109,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="clientes/editar?id=${cliente.id}" method="POST">
+                                        <form method="POST">
                                             <div class="form-group">
                                                 <label for="nombre">Nombre</label>
                                                 <input type="text" class="form-control" id="nombre${cliente.id}" name="nombre" value="${cliente.nombre}" />
@@ -174,6 +174,7 @@
                 const fecha_nacimiento = document.querySelector(`#fecha_nacimiento${id}`).value;
 
                 const cliente = {
+                    id,
                     nombre,
                     apellidos,
                     correo,
@@ -185,8 +186,30 @@
                 subirActualizacionCliente(cliente);
             }
 
-            function subirActualizacionCliente(cliente) {
-                console.log(`Se está actualizando el cliente: ${cliente.nombre} ${cliente.apellidos}`);
+            async function subirActualizacionCliente(cliente) {
+                //console.log(`Se está actualizando el cliente: ${cliente.nombre} ${cliente.apellidos}`);
+                // Conatruir peticion
+                const datos = new FormData();
+                datos.append('id', cliente.id);
+                datos.append('nombre', cliente.nombre);
+                datos.append('apellidos', cliente.apellidos);
+                datos.append('correo', cliente.correo);
+                datos.append('telefono', cliente.telefono);
+                datos.append('documento_identidad', cliente.documento_identidad);
+                datos.append('fecha_nacimiento', cliente.fecha_nacimiento);
+
+                try {
+                    const url = 'http://localhost:3000/api/clientes/actualizar';
+                    const respuesta = await fetch(url, {
+                        method: 'POST',
+                        body: datos
+                    });
+
+                    const resultado = await respuesta.json();
+                    console.log(resultado);
+                } catch (error) {
+                    console.log(error);
+                }
             }
 
         } catch (error) {
