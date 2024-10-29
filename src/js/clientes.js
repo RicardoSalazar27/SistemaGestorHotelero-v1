@@ -187,8 +187,6 @@
             }
 
             async function subirActualizacionCliente(cliente) {
-                //console.log(`Se está actualizando el cliente: ${cliente.nombre} ${cliente.apellidos}`);
-                // Construir peticion
                 const datos = new FormData();
                 datos.append('id', cliente.id);
                 datos.append('nombre', cliente.nombre);
@@ -197,20 +195,31 @@
                 datos.append('telefono', cliente.telefono);
                 datos.append('documento_identidad', cliente.documento_identidad);
                 datos.append('fecha_nacimiento', cliente.fecha_nacimiento);
-
+            
                 try {
                     const url = 'http://localhost:3000/api/clientes/actualizar';
                     const respuesta = await fetch(url, {
                         method: 'POST',
                         body: datos
                     });
-
+            
                     const resultado = await respuesta.json();
                     mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+            
+                    // Cerrar el modal inmediatamente
+                    const modal = document.querySelector(`#editarClienteModal${cliente.id}`);
+                    if (modal) {
+                        $(modal).modal('hide');
+                    }
+            
+                    // Llama a listarClients para actualizar los datos sin destruir DataTable
+                    await initDataTable();
+            
                 } catch (error) {
                     console.log(error);
                 }
             }
+            
 
         } catch (error) {
             console.log(error);
