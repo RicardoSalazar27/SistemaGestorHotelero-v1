@@ -18,6 +18,7 @@ class APIClientes {
             if(!$cliente){
                 $respuesta = [
                     'tipo' => 'error',
+                    'titulo' => 'Ooops...',
                     'mensaje' => 'Hubo un error al actualizar el cliente'
                 ];
                 echo json_encode($respuesta);
@@ -28,7 +29,8 @@ class APIClientes {
             $cliente->sincronizar($_POST);
             $resultado = $cliente->guardar();            
             $respuesta = [
-                'tipo' => 'exito',
+                'tipo' => 'success',
+                'titulo' => 'Actualizado',
                 'mensaje' => 'Actualizado Correctamente'
             ];
             echo json_encode($respuesta);

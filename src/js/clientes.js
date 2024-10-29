@@ -188,7 +188,7 @@
 
             async function subirActualizacionCliente(cliente) {
                 //console.log(`Se está actualizando el cliente: ${cliente.nombre} ${cliente.apellidos}`);
-                // Conatruir peticion
+                // Construir peticion
                 const datos = new FormData();
                 datos.append('id', cliente.id);
                 datos.append('nombre', cliente.nombre);
@@ -206,7 +206,7 @@
                     });
 
                     const resultado = await respuesta.json();
-                    console.log(resultado);
+                    mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
                 } catch (error) {
                     console.log(error);
                 }
@@ -217,4 +217,21 @@
         }
     }
 
+    function mostrarAlerta(titulo, mensaje, tipo) {
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            icon: tipo,  // Tipo de alerta (success, error, warning, info, etc.)
+            title: titulo,
+            text: mensaje,  // Mensaje de la alerta
+        }).then(() => {
+            // Cerrar el modal de edición del cliente al cerrar la alerta
+            const modales = document.querySelectorAll('.modal-editarCliente');
+            modales.forEach(modal => {
+                if ($(modal).hasClass('show')) {
+                    $(modal).modal('hide');
+                }
+            });
+        });
+    }
+    
 })();
