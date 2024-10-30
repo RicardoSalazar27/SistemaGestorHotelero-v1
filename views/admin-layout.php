@@ -70,6 +70,6 @@
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
     <!-- SweetAlert2-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/build/resources/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 </body>
 </html>

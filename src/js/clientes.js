@@ -2,9 +2,6 @@
     let dataTable;
     let dataTableInit = false;
 
-    const clientes = [];
-    const cliente = [];
-
     // Opciones de DataTables
     const dataTableOption = {
         destroy: true,
@@ -219,7 +216,6 @@
                     console.log(error);
                 }
             }
-            
 
         } catch (error) {
             console.log(error);

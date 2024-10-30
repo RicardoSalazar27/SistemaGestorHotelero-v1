@@ -11,10 +11,8 @@ class ClientesController {
     public static function index(Router $router) {
 
         is_auth();
-        //tiene_rol('1');
 
         $usuario = Usuario::where('email', $_SESSION['email']);
-        //debuguear($usuario);
 
         $alertas = [];
 
@@ -35,10 +33,10 @@ class ClientesController {
         is_auth();
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $usuario = Usuario::find($_POST['id']);
+            $usuario = Cliente::find($_POST['id']);
             $usuario->eliminar();
 
-            header('Location: /admin/usuarios');
+            header('Location: /admin/clientes');
         }
     }
 
@@ -46,7 +44,6 @@ class ClientesController {
         is_auth();
 
         $cliente = new Cliente;
-        //debuguear($_POST);
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $existecliente = Cliente::where('correo', $_POST['correo']);
@@ -57,7 +54,7 @@ class ClientesController {
                 $resultado = $cliente->guardar();
 
                 if($resultado){
-                    debuguear('Guardado con exito!');
+                    header('Location: /admin/clientes');
                 }
             }
         }

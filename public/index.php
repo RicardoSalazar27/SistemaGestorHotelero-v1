@@ -47,6 +47,7 @@ $router->post('/admin/usuarios/eliminar', [UsuariosController::class, 'eliminar'
 
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 $router->post('/admin/clientes/crear', [ClientesController::class, 'crear']);
+$router->post('/admin/clientes/eliminar', [ClientesController::class, 'eliminar']);
 
 
 // API'S
