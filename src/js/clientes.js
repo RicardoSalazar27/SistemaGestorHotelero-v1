@@ -163,36 +163,22 @@
             });
 
             // Subir actualización del cliente
-            function actualizarCliente(id) {
-                const nombre = document.querySelector(`#nombre${id}`).value.trim();
-                const apellidos = document.querySelector(`#apellidos${id}`).value.trim();
-                const correo = document.querySelector(`#correo${id}`).value.trim();
-                const telefono = document.querySelector(`#telefono${id}`).value.trim();
-                const documento_identidad = document.querySelector(`#documento_identidad${id}`).value.trim();
-                const fecha_nacimiento = document.querySelector(`#fecha_nacimiento${id}`).value;
-
+            async function actualizarCliente(id) {
                 const cliente = {
                     id,
-                    nombre,
-                    apellidos,
-                    correo,
-                    telefono,
-                    documento_identidad,
-                    fecha_nacimiento
+                    nombre: document.querySelector(`#nombre${id}`).value.trim(),
+                    apellidos: document.querySelector(`#apellidos${id}`).value.trim(),
+                    correo: document.querySelector(`#correo${id}`).value.trim(),
+                    telefono: document.querySelector(`#telefono${id}`).value.trim(),
+                    documento_identidad: document.querySelector(`#documento_identidad${id}`).value.trim(),
+                    fecha_nacimiento: document.querySelector(`#fecha_nacimiento${id}`).value
                 };
-
-                subirActualizacionCliente(cliente);
+                await subirActualizacionCliente(cliente);  // Envía los datos para actualización
             }
 
             async function subirActualizacionCliente(cliente) {
                 const datos = new FormData();
-                datos.append('id', cliente.id);
-                datos.append('nombre', cliente.nombre);
-                datos.append('apellidos', cliente.apellidos);
-                datos.append('correo', cliente.correo);
-                datos.append('telefono', cliente.telefono);
-                datos.append('documento_identidad', cliente.documento_identidad);
-                datos.append('fecha_nacimiento', cliente.fecha_nacimiento);
+                Object.entries(cliente).forEach(([key, value]) => datos.append(key, value));
             
                 try {
                     const url = 'http://localhost:3000/api/clientes/actualizar';
