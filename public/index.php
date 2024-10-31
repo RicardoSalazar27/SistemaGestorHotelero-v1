@@ -55,5 +55,6 @@ $router->get('/api/usuarios/listar', [APIUsuarios::class, 'listar']);
 
 $router->get('/api/clientes/listar', [APIClientes::class, 'listar']);
 $router->post('/api/clientes/actualizar', [APIClientes::class, 'actualizar']);
+$router->post('/api/clientes/eliminar', [APIClientes::class, 'eliminar']);
 
 $router->comprobarRutas();

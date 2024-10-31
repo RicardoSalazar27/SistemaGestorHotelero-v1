@@ -36,6 +36,28 @@ class APIClientes {
             echo json_encode($respuesta);
         }
     }
+
+    public static function eliminar(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $cliente = Cliente::where('id', $_POST['id']);
+            if(!$cliente){
+                $respuesta = [
+                    'tipo' => 'error',
+                    'titulo' => 'Ooops...',
+                    'mensaje' => 'Hubo un error al eliminar el cliente'
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
+            $cliente->eliminar();
+            $respuesta = [
+                'tipo' => 'success',
+                'titulo' => 'Eliminado',
+                'mensaje' => 'Eliminado Correctamente'
+            ];
+            echo json_encode($respuesta);
+        }
+    }
 }
 
 ?>
