@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="clientes/crear" method="POST">
+        <!--<form action="clientes/crear" method="POST">-->
             <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input 
@@ -73,9 +73,9 @@
             <!-- Botones en el formulario -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary btnAgregarCliente">Guardar</button>
             </div>
-        </form>
+        <!--</form>-->
       </div>
     </div>
   </div>

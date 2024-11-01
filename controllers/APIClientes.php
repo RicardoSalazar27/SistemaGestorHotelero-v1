@@ -37,6 +37,46 @@ class APIClientes {
         }
     }
 
+    public static function crear() {
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+            $clienteExistente = Cliente::where('correo', $_POST['correo']); 
+            
+            if($clienteExistente) {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'titulo' => 'Ooops...',
+                    'mensaje' => 'El cliente ya existe'
+                ];
+                echo json_encode($respuesta);
+                return;
+            } 
+    
+            // Crear un nuevo cliente
+            $cliente = new Cliente();
+            $cliente->sincronizar($_POST);
+            $resultado = $cliente->guardar();
+    
+            if ($resultado) {
+                $respuesta = [
+                    'tipo' => 'success',
+                    'titulo' => 'Creado',
+                    'mensaje' => 'Creado Correctamente'
+                ];
+            } else {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'titulo' => 'Error',
+                    'mensaje' => 'Hubo un problema al crear el cliente'
+                ];
+            }
+            
+            echo json_encode($respuesta);
+        }
+    }
+    
+
     public static function eliminar(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $cliente = Cliente::where('id', $_POST['id']);

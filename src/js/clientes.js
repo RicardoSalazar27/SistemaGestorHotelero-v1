@@ -2,16 +2,15 @@
     let dataTable;
     let dataTableInit = false;
 
-    // Opciones de DataTables
-    const dataTableOption = {
+    // Configuración inicial de DataTable con opciones y botones personalizados
+    const dataTableOptions = {
         destroy: true,
         language: {
             url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/es-MX.json',
         },
-        //dom: 'Bfrtip', // Agrega la sección para los botones
-        dom: '<"row mb-2"<"d-flex justify-content-start col-sm-6"f><"d-flex justify-content-end col-sm-6"B>>' +  // B-> botones, F -> búsqueda
-        '<"row"<"col-sm-12"tr>>' +             // T -> tabla
-         '<"row d-flex justify-content-between"<"col d-flex justify-content-start"l><"col d-flex justify-content-center"i><"col d-flex justify-content-end"p>>' ,  // L-> de entradas  - I -> número de resultados por página, P-> paginador
+        dom: '<"row mb-2"<"d-flex justify-content-start col-sm-6"f><"d-flex justify-content-end col-sm-6"B>>' +
+             '<"row"<"col-sm-12"tr>>' +
+             '<"row d-flex justify-content-between"<"col d-flex justify-content-start"l><"col d-flex justify-content-center"i><"col d-flex justify-content-end"p>>',
         buttons: [
             {
                 extend: 'excelHtml5',
@@ -37,228 +36,179 @@
                 titleAttr: 'Imprimir',
                 className: 'btn btn-info'
             }
-
         ],
         columnDefs: [
-            { orderable: false, targets: [3, 4, 7] }  // Desactiva la ordenación en la columna 8 (índice 7)
+            { orderable: false, targets: [3, 4, 7] }  // Desactiva la ordenación en las columnas especificadas
         ]
     };
 
-
-    //Ejecutar Funciones
+    // Inicializa la DataTable al cargar el documento
     initDataTable();
 
-    // Función para inicializar la DataTable
+    /**
+     * Inicializa la DataTable y la carga con datos.
+     */
     async function initDataTable() {
         if (dataTableInit) {
-            dataTable.destroy();  // Destruye la DataTable si ya existe
+            dataTable.destroy();  // Si ya existe una instancia de DataTable, la destruye para evitar duplicados
         }
+        
+        await listarClientes();  // Carga los datos de clientes
 
-        await listarClients();  // Llama a la función para listar usuarios
-
-        // Inicializa la DataTable
-        dataTable = $("#datatable_clients").DataTable(dataTableOption);
-
-        dataTableInit = true;  // Marca que la DataTable fue inicializada
+        dataTable = $("#datatable_clients").DataTable(dataTableOptions);
+        dataTableInit = true;
     }
 
-    // Función para listar los usuarios
-    async function listarClients() {
+    /**
+     * Recupera y muestra la lista de clientes en la tabla.
+     */
+    async function listarClientes() {
         try {
             const url = 'http://localhost:3000/api/clientes/listar';
-            const resultado = await fetch(url);
-            const clientes = await resultado.json();
+            const response = await fetch(url);
+            const clientes = await response.json();
 
-            // Selecciona el cuerpo de la tabla
-            const tableBody = document.getElementById('tableBody_clients');
-
-            // Limpia el contenido del tbody antes de agregar nuevas filas
-            tableBody.innerHTML = '';
-
-            // Recorre los clientes y genera las filas de la tabla
-            clientes.forEach((cliente, index) => {
-                // Crea una nueva fila
-                const row = document.createElement('tr');
-
-                // Agrega celdas (td) a la fila con la información que quieres mostrar
-                row.innerHTML = `
-                    <td>${index + 1}</td> 
-                    <td>${cliente.nombre}</td>
-                    <td>${cliente.apellidos}</td>
-                    <td>${cliente.correo}</td>
-                    <td>${cliente.telefono}</td>
-                    <td>${cliente.documento_identidad}</td>
-                    <td>${cliente.fecha_nacimiento}</td>
-                    <td>
-                        <!-- Botón de editar que abre el modal -->
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editarClienteModal${cliente.id}">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                        <!-- Modal Editar Cliente -->
-                        <div class="modal fade modal-editarCliente" id="editarClienteModal${cliente.id}" tabindex="-1" role="dialog" aria-labelledby="clientesModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="clientesModalLabel">Editar Cliente</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST">
-                                            <div class="form-group">
-                                                <label for="nombre">Nombre</label>
-                                                <input type="text" class="form-control" id="nombre${cliente.id}" name="nombre" value="${cliente.nombre}" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="apellidos">Apellidos</label>
-                                                <input type="text" class="form-control" id="apellidos${cliente.id}" name="apellidos" value="${cliente.apellidos}" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="correo">Correo</label>
-                                                <input type="email" class="form-control" id="correo${cliente.id}" name="correo" value="${cliente.correo}" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="telefono">Telefono</label>
-                                                <input type="text" class="form-control" id="telefono${cliente.id}" name="telefono" value="${cliente.telefono}" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="documento_identidad">DNI</label>
-                                                <input type="text" class="form-control" id="documento_identidad${cliente.id}" name="documento_identidad" value="${cliente.documento_identidad}" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                                                <input type="date" class="form-control" id="fecha_nacimiento${cliente.id}" name="fecha_nacimiento" value="${cliente.fecha_nacimiento}" />
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary btn-actualizarCliente" data-id="${cliente.id}">Guardar</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Botón de eliminar -->
-                        <button class="btn btn-sm btn-danger btn-eliminarCliente" data-id="${cliente.id}">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td>
-                `;
-                tableBody.appendChild(row); 
-            });
-
-            // Delegación para actualizar cliente
-            tableBody.addEventListener('click', function(e) {
-                if (e.target.classList.contains('btn-actualizarCliente')) {
-                    const clienteId = e.target.getAttribute('data-id');
-                    actualizarCliente(clienteId);
-                }
-                if (e.target.classList.contains('btn-eliminarCliente')) {
-                    const clienteId = e.target.getAttribute('data-id');
-                    confirmarEliminacion(clienteId);
-                }
-            });
-
-            // Subir actualización del cliente
-            async function actualizarCliente(id) {
-                const cliente = {
-                    id,
-                    nombre: document.querySelector(`#nombre${id}`).value.trim(),
-                    apellidos: document.querySelector(`#apellidos${id}`).value.trim(),
-                    correo: document.querySelector(`#correo${id}`).value.trim(),
-                    telefono: document.querySelector(`#telefono${id}`).value.trim(),
-                    documento_identidad: document.querySelector(`#documento_identidad${id}`).value.trim(),
-                    fecha_nacimiento: document.querySelector(`#fecha_nacimiento${id}`).value
-                };
-                await subirActualizacionCliente(cliente);  // Envía los datos para actualización
-            }
-
-            async function subirActualizacionCliente(cliente) {
-                const datos = new FormData();
-                Object.entries(cliente).forEach(([key, value]) => datos.append(key, value));
-            
-                try {
-                    const url = 'http://localhost:3000/api/clientes/actualizar';
-                    const respuesta = await fetch(url, {
-                        method: 'POST',
-                        body: datos
-                    });
-            
-                    const resultado = await respuesta.json();
-                    mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
-            
-                    // Cerrar el modal inmediatamente
-                    const modal = document.querySelector(`#editarClienteModal${cliente.id}`);
-                    if (modal) {
-                        $(modal).modal('hide');
-                    }
-            
-                    // Llama a listarClients para actualizar los datos sin destruir DataTable
-                    await initDataTable();
-            
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-
+            renderClientes(clientes);  // Llama a la función para mostrar los clientes en la tabla
         } catch (error) {
-            console.log(error);
-        }
-
-        function confirmarEliminacion(id){
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "Esta acción no se puede deshacer.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then(async (result) => {
-                if (result.isConfirmed) {//result.isConfirmed verifica si el usuario ha hecho clic en "Sí, eliminar".
-                    try {
-                        const datos = new FormData();
-                        datos.append('id', id);
-
-                        const url = `http://localhost:3000/api/clientes/eliminar`;
-                        const respuesta = await fetch(url, {
-                            method: 'POST',
-                            body: datos
-                        });
-                        
-                        const resultado = await respuesta.json();
-                        mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
-                        
-                        if (resultado.tipo === 'success') { //l servidor indica que la eliminación fue exitosa
-                            await initDataTable();
-                        }
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }
-            });   
+            console.error('Error al listar clientes:', error);
         }
     }
 
-    function mostrarAlerta(titulo, mensaje, tipo) {
-        // Mostrar la alerta con SweetAlert2
+    /**
+     * Rinde la lista de clientes en el cuerpo de la tabla.
+     * @param {Array} clientes - Lista de clientes obtenida del servidor.
+     */
+    function renderClientes(clientes) {
+        const tableBody = document.getElementById('tableBody_clients');
+        tableBody.innerHTML = '';  // Limpia el contenido previo
+
+        clientes.forEach((cliente, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${index + 1}</td> 
+                <td>${cliente.nombre}</td>
+                <td>${cliente.apellidos}</td>
+                <td>${cliente.correo}</td>
+                <td>${cliente.telefono}</td>
+                <td>${cliente.documento_identidad}</td>
+                <td>${cliente.fecha_nacimiento}</td>
+                <td>
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editarClienteModal${cliente.id}">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger btn-eliminarCliente" data-id="${cliente.id}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Agrega eventos para los botones de actualización y eliminación
+        tableBody.addEventListener('click', handleClientActions);
+    }
+
+    /**
+     * Maneja las acciones de edición y eliminación de clientes.
+     * @param {Event} e - Evento de clic.
+     */
+    function handleClientActions(e) {
+        const target = e.target;
+        if (target.classList.contains('btn-actualizarCliente')) {
+            const clienteId = target.getAttribute('data-id');
+            actualizarCliente(clienteId);
+        } else if (target.classList.contains('btn-eliminarCliente')) {
+            const clienteId = target.getAttribute('data-id');
+            confirmarEliminacion(clienteId);
+        }
+    }
+
+    /**
+     * Confirma y elimina un cliente de la lista.
+     * @param {number} id - ID del cliente a eliminar.
+     */
+    function confirmarEliminacion(id) {
         Swal.fire({
-            icon: tipo,  // Tipo de alerta (success, error, warning, info, etc.)
-            title: titulo,
-            text: mensaje,  // Mensaje de la alerta
-        }).then(() => {
-            // Cerrar el modal de edición del cliente al cerrar la alerta
-            const modales = document.querySelectorAll('.modal-editarCliente');
-            modales.forEach(modal => {
-                if ($(modal).hasClass('show')) {
-                    $(modal).modal('hide');
-                }
-            });
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await eliminarCliente(id);
+                await initDataTable();  // Refresca la tabla tras la eliminación
+            }
         });
     }
-    
+
+    /**
+     * Envía una solicitud para eliminar un cliente.
+     * @param {number} id - ID del cliente a eliminar.
+     */
+    async function eliminarCliente(id) {
+        try {
+            const datos = new FormData();
+            datos.append('id', id);
+            const url = 'http://localhost:3000/api/clientes/eliminar';
+            const response = await fetch(url, { method: 'POST', body: datos });
+            const resultado = await response.json();
+            mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+        } catch (error) {
+            console.error('Error al eliminar cliente:', error);
+        }
+    }
+
+    /**
+     * Muestra una alerta utilizando SweetAlert.
+     * @param {string} titulo - Título de la alerta.
+     * @param {string} mensaje - Mensaje de la alerta.
+     * @param {string} tipo - Tipo de alerta (success, error, etc.).
+     */
+    function mostrarAlerta(titulo, mensaje, tipo) {
+        Swal.fire({
+            icon: tipo,
+            title: titulo,
+            text: mensaje
+        });
+    }
+
+    // Agregar cliente - Evento de botón de añadir cliente
+    document.querySelector('.btnAgregarCliente').addEventListener('click', agregarCliente);
+
+    /**
+     * Agrega un nuevo cliente a la lista.
+     */
+    async function agregarCliente() {
+        const nuevoCliente = {
+            nombre: document.getElementById('nombre').value.trim(),
+            apellidos: document.getElementById('apellidos').value.trim(),
+            correo: document.getElementById('correo').value.trim(),
+            telefono: document.getElementById('telefono').value.trim(),
+            documento_identidad: document.getElementById('documento_identidad').value.trim(),
+            fecha_nacimiento: document.getElementById('fecha_nacimiento').value
+        };
+
+        if (!nuevoCliente.nombre || !nuevoCliente.apellidos || !nuevoCliente.correo) {
+            mostrarAlerta('Error', 'Todos los campos son obligatorios', 'error');
+            return;
+        }
+
+        try {
+            const datos = new FormData();
+            Object.entries(nuevoCliente).forEach(([key, value]) => datos.append(key, value));
+            const url = 'http://localhost:3000/api/clientes/crear';
+            const response = await fetch(url, { method: 'POST', body: datos });
+            const resultado = await response.json();
+            mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+            $('#clientesModal').modal('hide');
+            await initDataTable();
+        } catch (error) {
+            console.error('Error al agregar cliente:', error);
+        }
+    }
+
 })();
