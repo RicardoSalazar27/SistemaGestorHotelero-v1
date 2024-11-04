@@ -54,7 +54,6 @@ $router->post('/admin/clientes/eliminar', [ClientesController::class, 'eliminar'
 $router->get('/api/usuarios/listar', [APIUsuarios::class, 'listar']);
 
 $router->get('/api/clientes/listar', [APIClientes::class, 'listar']);
-
 $router->post('/api/clientes/crear', [APIClientes::class, 'crear']);
 $router->post('/api/clientes/actualizar', [APIClientes::class, 'actualizar']);
 $router->post('/api/clientes/eliminar', [APIClientes::class, 'eliminar']);

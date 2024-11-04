@@ -34,13 +34,21 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
+                                    <th>Apellidos</th>
                                     <th>Dirección</th>
                                     <th>Email</th>
+                                    <th>password</th>
+                                    <th>password2</th>
+                                    <th>Fecha Nacimiento</th>
                                     <th>Rol</th>
                                     <th>Estatus</th>
                                     <th>Fecha de Creación</th>
+                                    <th>Ultimo Acceso</th>
+                                    <th>confirmado</th>
+                                    <th>Passord Nuevo</th>
+                                    <th>Password Actual</th>
                                     <th>Acciones</th>
+                                 
                                 </tr>
                             </thead>
                             <tbody id="tableBody_users"></tbody>

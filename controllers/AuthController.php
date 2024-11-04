@@ -66,6 +66,11 @@ class AuthController {
     public static function logout() {
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
+            $usuario = Usuario::find($_SESSION['id']);
+            date_default_timezone_set("America/Mexico_City");
+            $fecha_actual = date("Y-m-d H:i:s");
+            $usuario->ultimo_acceso = $fecha_actual;
+            $usuario->guardar();
             $_SESSION = [];
             header('Location: /login');
         }
