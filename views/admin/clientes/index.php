@@ -39,7 +39,7 @@
                                 <th>Telefono</th>
                                 <th>DNI</th>
                                 <th>Fecha de Nacimiento</th>
-                                <th>Acciones</th>
+                                <th class="no-export">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody_clients"></tbody>

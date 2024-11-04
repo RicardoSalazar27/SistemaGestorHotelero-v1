@@ -27,36 +27,4 @@ class ClientesController {
             'nombre_hotel' => $nombre_hotel
         ]);
     }
-
-    public static function eliminar(){
-
-        is_auth();
-
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $usuario = Cliente::find($_POST['id']);
-            $usuario->eliminar();
-
-            header('Location: /admin/clientes');
-        }
-    }
-
-    public static function crear(){
-        is_auth();
-
-        $cliente = new Cliente;
-
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $existecliente = Cliente::where('correo', $_POST['correo']);
-            if($existecliente){
-                echo 'si existe cliente';
-            } else{
-                $cliente -> sincronizar($_POST);
-                $resultado = $cliente->guardar();
-
-                if($resultado){
-                    header('Location: /admin/clientes');
-                }
-            }
-        }
-    }
 }
