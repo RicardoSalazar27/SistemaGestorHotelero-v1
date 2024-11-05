@@ -44,7 +44,7 @@
                                     <th>Estatus</th>
                                     <th>Fecha de Creación</th>
                                     <th>Ultimo Acceso</th>
-                                    <th>confirmado</th>
+                                    <th class="text-center">confirmado</th>
                                     <th>Passord Nuevo</th>
                                     <th>Password Actual</th>
                                     <th>Acciones</th>
