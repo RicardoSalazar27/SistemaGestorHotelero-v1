@@ -196,7 +196,7 @@
                         </div>
                     
                         <!-- Botón de eliminar -->
-                        <button class="btn btn-sm btn-danger btn-eliminarCliente" data-id="${usuario.id}">
+                        <button class="btn btn-sm btn-danger btn-eliminarUsuario" data-id="${usuario.id}">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
@@ -231,13 +231,95 @@
                         estatus: document.querySelector(`#estatus${id}`).value, // Value from select
                         confirmado: document.querySelector(`#confirmado${id}`).value // Value from select
                     };
-                    console.log(usuario);
-                    //await subirActualizacionUsuario(usuario);  // Envía los datos para actualización
+                    //console.log(usuario);
+                    await subirActualizacionUsuario(usuario);  // Envía los datos para actualización
+                }
+                async function subirActualizacionUsuario(usuario){
+                    const datos = new FormData();
+                    Object.entries(usuario).forEach(([key, value]) => datos.append(key, value));
+
+                    try{
+                        const url = 'http://localhost:3000/api/usuarios/actualizar';
+                        const respuesta = await fetch(url,{
+                            method: 'POST',
+                            body: datos
+                        });
+                        
+                        const resultado = await respuesta.json();
+                        mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+
+                        //Cerrar el modal inmediatamente
+                        const modal = document.querySelector(`#editarUsuarioModal${usuario.id}`);
+                        if (modal) {
+                            $(modal).modal('hide');
+                        }
+
+                        // Llama listarUsers para actualizar los datos sin destruir el Datatable
+                        await initDatable();
+
+                    } catch(error){
+                        console.log(error);
+                    }
                 }
 
         } catch(e){
             console.log(e);
         }
+
+        //Eliminar Cliente
+        function confirmarEliminacionUsuario(id){
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {//result.isConfirmed verifica si el usuario ha hecho clic en "Sí, eliminar".
+                    try {
+                        const datos = new FormData();
+                        datos.append('id', id);
+
+                        const url = `http://localhost:3000/api/usuarios/eliminar`;
+                        const respuesta = await fetch(url, {
+                            method: 'POST',
+                            body: datos
+                        });
+                        
+                        const resultado = await respuesta.json();
+                        mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+                        
+                        if (resultado.tipo === 'success') { //el servidor indica que la eliminación fue exitosa
+                            // Llama listarUsers para actualizar los datos sin destruir el Datatable
+                            await initDatable();
+                        }
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            });   
+        }
+    }
+
+    // Funcion para mostrar alertas
+    function mostrarAlerta(titulo, mensaje, tipo) {
+        // Mostrar la alerta con SweetAlert2
+        Swal.fire({
+            icon: tipo,  // Tipo de alerta (success, error, warning, info, etc.)
+            title: titulo,
+            text: mensaje,  // Mensaje de la alerta
+        }).then(() => {
+            // Cerrar el modal de edición del cliente al cerrar la alerta
+            const modales = document.querySelectorAll('.modal-editarUsuario');
+            modales.forEach(modal => {
+                if ($(modal).hasClass('show')) {
+                    $(modal).modal('hide');
+                }
+            });
+        });
     }
 
 })();
