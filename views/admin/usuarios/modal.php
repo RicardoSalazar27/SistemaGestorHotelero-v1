@@ -1,16 +1,15 @@
 <!-- Modal Crear-->
-<div class="modal fade" id="clientesModal" tabindex="-1" role="dialog" aria-labelledby="clientesModalLabel" aria-hidden="true">
+<div class="modal fade" id="usuariosModal" tabindex="-1" role="dialog" aria-labelledby="usuariosModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="clientesModalLabel">Agregar Nuevo</h5>
+        <h5 class="modal-title" id="usuariosModalLabel">Agregar Nuevo</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <!--<form action="clientes/crear" method="POST">-->
-            <div class="form-group">
+        <div class="form-group">
                 <label for="nombre">Nombre</label>
                 <input 
                     type="text"
@@ -21,12 +20,12 @@
                 />
             </div>
             <div class="form-group">
-                <label for="apellidos">Apellidos</label>
+                <label for="apellido">Apellidos</label>
                 <input 
                     type="text"
                     class="form-control"
-                    id="apellidos"
-                    name="apellidos"
+                    id="apellido"
+                    name="apellido"
                     placeholder="Tus Apellidos"
                 />
             </div>
@@ -41,34 +40,41 @@
                 />
             </div>
             <div class="form-group">
-                <label for="correo">Correo</label>
+                <label for="email">Email</label>
                 <input 
                     type="email"
                     class="form-control"
-                    id="correo"
-                    name="correo"
-                    placeholder="Tu Correo"
+                    id="email"
+                    name="email"
+                    placeholder="Tu Email"
                 />
             </div>
             <div class="form-group">
-                <label for="telefono">Telefono</label>
+                <label for="password">Password</label>
                 <input 
-                    type="text"
+                    type="password"
                     class="form-control"
-                    id="telefono"
-                    name="telefono"
-                    placeholder="Tu Telefono"
+                    id="password"
+                    name="password"
+                    placeholder="Tu Contraseña"
                 />
             </div>
             <div class="form-group">
-                <label for="documento_identidad">DNI</label>
+                <label for="passowrd2">Repite Tu Password</label>
                 <input 
-                    type="text"
+                    type="password"
                     class="form-control"
-                    id="documento_identidad"
-                    name="documento_identidad"
-                    placeholder="Tu DNI"
+                    id="password2"
+                    name="password2"
+                    placeholder="Tu Contraseña"
                 />
+            </div>
+            <div class="form-group">
+                <label for="rol_id">Rol</label>
+                <select class="form-control" id="rol_id" name="rol_id">
+                    <option value="2">General</option>
+                    <option value="3">Limpieza</option>
+                 </select>
             </div>
             <div class="form-group">
                 <label for="fecha_nacimiento">Fecha de Nacimiento</label>
@@ -83,9 +89,8 @@
             <!-- Botones en el formulario -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary btnAgregarCliente">Guardar</button>
+                <button type="submit" class="btn btn-primary btnSubirUsuario">Guardar</button>
             </div>
-        <!--</form>-->
       </div>
     </div>
   </div>

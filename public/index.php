@@ -52,7 +52,7 @@ $router->post('/admin/clientes/eliminar', [ClientesController::class, 'eliminar'
 
 // API'S
 $router->get('/api/usuarios/listar', [APIUsuarios::class, 'listar']);
-//$router->post('/api/usuarios/crear', [APIUsuarios::class, 'crear']);
+$router->post('/api/usuarios/crear', [APIUsuarios::class, 'crear']);
 $router->post('/api/usuarios/actualizar', [APIUsuarios::class, 'actualizar']);
 $router->post('/api/usuarios/eliminar', [APIUsuarios::class, 'eliminar']);
 

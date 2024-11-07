@@ -1,5 +1,7 @@
 (function (){
 
+    console.log('hola');
+
     let dataTable;
     let dataTableInit = false;
 
@@ -71,7 +73,7 @@
 
         //Inicializa DataTable
         dataTable = $('#datatable_users').DataTable(dataTableOption);
-
+        
         dataTableInit = true;
     }
 
@@ -131,7 +133,7 @@
                             <i class="fa-solid fa-pen"></i>
                         </button>
 
-                        <!-- Modal Editar Cliente -->
+                        <!-- Modal Editar Usuario -->
                         <div class="modal fade modal-editarUsuario" id="editarUsuarioModal${usuario.id}" tabindex="-1" role="dialog" aria-labelledby="UsuarioModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -211,14 +213,14 @@
                     const UsuarioId = e.target.getAttribute('data-id');
                     actualizarUsuario(UsuarioId);
                 }
-                // Delegación para eliminar cliente
+                // Delegación para eliminar usuario
                 if (e.target.classList.contains('btn-eliminarUsuario')) {
                     const UsuarioId = e.target.getAttribute('data-id');
                     confirmarEliminacionUsuario(UsuarioId);
                 }
                 });
 
-                // Subir actualización del cliente
+                //Subir actualización del usuario
                 async function actualizarUsuario(id) {
                     const usuario = {
                         id,
@@ -266,7 +268,16 @@
             console.log(e);
         }
 
-        //Eliminar Cliente
+        // Subir Usuario
+        const botonSubirUsuario = document.querySelector('.btnSubirUsuario');
+        if(botonSubirUsuario){
+            document.querySelector('.btnSubirUsuario').addEventListener('click', function (){
+                //
+                console.log('le diste click a subir usuario');
+            })
+        }
+
+        //Eliminar usuario
         function confirmarEliminacionUsuario(id){
             Swal.fire({
                 title: '¿Estás seguro?',
@@ -312,7 +323,7 @@
             title: titulo,
             text: mensaje,  // Mensaje de la alerta
         }).then(() => {
-            // Cerrar el modal de edición del cliente al cerrar la alerta
+            // Cerrar el modal de edición del usuario al cerrar la alerta
             const modales = document.querySelectorAll('.modal-editarUsuario');
             modales.forEach(modal => {
                 if ($(modal).hasClass('show')) {

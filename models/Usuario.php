@@ -12,7 +12,6 @@ class Usuario extends ActiveRecord {
     public $direccion;
     public $email;
     public $password;
-    public $password2;
     public $fecha_nacimiento;
     public $rol_id;
     public $estatus;

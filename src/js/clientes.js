@@ -257,65 +257,60 @@
         }
     }
 
-    document.querySelector('.btnAgregarCliente').addEventListener('click', async function () {
-        // Crear objeto cliente con los valores de los campos
-        const nuevoCliente = {
-            nombre: document.getElementById('nombre').value.trim(),
-            apellidos: document.getElementById('apellidos').value.trim(),
-            correo: document.getElementById('correo').value.trim(),
-            telefono: document.getElementById('telefono').value.trim(),
-            documento_identidad: document.getElementById('documento_identidad').value.trim(),
-            fecha_nacimiento: document.getElementById('fecha_nacimiento').value
-        };
-    
-        // Validar que no estén vacíos los campos obligatorios
-        if (!nuevoCliente.nombre || !nuevoCliente.apellidos || !nuevoCliente.correo) {
-            mostrarAlerta('Error', 'Todos los campos son obligatorios', 'error');
-            return;
-        }
-    
-        try {
-            // Crear un FormData para enviar los datos
-            const datos = new FormData();
-            Object.entries(nuevoCliente).forEach(([key, value]) => datos.append(key, value));
-    
-            // Enviar petición para agregar cliente
-            const url = 'http://localhost:3000/api/clientes/crear';
-            const respuesta = await fetch(url, {
-                method: 'POST',
-                body: datos
-            });
-    
-            const resultado = await respuesta.json();
-            mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
-    
-            // Cierra el modal al guardar
-            $('#clientesModal').modal('hide');
-    
-            // Vuelve a cargar los datos para reflejar el nuevo cliente en la tabla
-            await initDataTable();
-    
-        } catch (error) {
-            console.log(error);
-        }
-    });
-    
-
-    function mostrarAlerta(titulo, mensaje, tipo) {
-        // Mostrar la alerta con SweetAlert2
-        Swal.fire({
-            icon: tipo,  // Tipo de alerta (success, error, warning, info, etc.)
-            title: titulo,
-            text: mensaje,  // Mensaje de la alerta
-        }).then(() => {
-            // Cerrar el modal de edición del cliente al cerrar la alerta
-            const modales = document.querySelectorAll('.modal-editarCliente');
-            modales.forEach(modal => {
-                if ($(modal).hasClass('show')) {
-                    $(modal).modal('hide');
-                }
-            });
+    const botonSubirCliente = document.querySelector('.btnSubirCliente');
+    if(botonSubirCliente){
+        document.querySelector('.btnSubirCliente').addEventListener('click', async function () {
+            // Crear objeto cliente con los valores de los campos
+            const nuevoCliente = {
+                nombre: document.getElementById('nombre').value.trim(),
+                apellidos: document.getElementById('apellidos').value.trim(),
+                correo: document.getElementById('correo').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                documento_identidad: document.getElementById('documento_identidad').value.trim(),
+                fecha_nacimiento: document.getElementById('fecha_nacimiento').value
+            };
+        
+            // Validar que no estén vacíos los campos obligatorios
+            if (!nuevoCliente.nombre || !nuevoCliente.apellidos || !nuevoCliente.correo) {
+                mostrarAlerta('Error', 'Todos los campos son obligatorios', 'error');
+                return;
+            }
+        
+            try {
+                // Crear un FormData para enviar los datos
+                const datos = new FormData();
+                Object.entries(nuevoCliente).forEach(([key, value]) => datos.append(key, value));
+        
+                // Enviar petición para agregar cliente
+                const url = 'http://localhost:3000/api/clientes/crear';
+                const respuesta = await fetch(url, {
+                    method: 'POST',
+                    body: datos
+                });
+        
+                const resultado = await respuesta.json();
+                mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+        
+                // Cierra el modal al guardar
+                $('#clientesModal').modal('hide');
+        
+                // Vuelve a cargar los datos para reflejar el nuevo cliente en la tabla
+                await initDataTable();
+        
+            } catch (error) {
+                console.log(error);
+            }
         });
     }
+
+    function mostrarAlerta(titulo, mensaje, tipo) {
+        Swal.fire({
+            icon: tipo,
+            title: titulo,
+            text: mensaje,
+        }).then(() => {
+            $('.modal').modal('hide'); // Cierra todos los modales activos
+        });
+    }    
     
 })();
