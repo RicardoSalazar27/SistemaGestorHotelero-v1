@@ -60,4 +60,4 @@
     </div>
 </section>
 
-<?php include_once __DIR__ . '\modal.php';?>
+<?php include_once __DIR__ . '/modal.php';?>

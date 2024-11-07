@@ -39,6 +39,7 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 // Are de Administracion
 $router->get('/admin/index', [DashboardController::class, 'index']);
 $router->get('/admin/configuracion/informacion', [informacionController::class, 'index']);
+$router->get('/admin/configuracion/habitaciones', [HabitacionesController::class, 'index']);
 $router->get('/admin/usuarios', [UsuariosController::class, 'index']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 
