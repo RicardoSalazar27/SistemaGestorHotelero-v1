@@ -32,6 +32,7 @@ class APIUsuarios {
             date_default_timezone_set("America/Mexico_City");
             $fecha_actual = date("Y-m-d H:i:s");
             $usuario->fecha_creacion = $fecha_actual;
+            $usuario->ultimo_acceso = $fecha_actual;
             $usuario->hashPassword();
             $resultado = $usuario->guardar();
     

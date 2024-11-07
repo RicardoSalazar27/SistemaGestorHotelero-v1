@@ -271,11 +271,60 @@
         // Subir Usuario
         const botonSubirUsuario = document.querySelector('.btnSubirUsuario');
         if(botonSubirUsuario){
-            document.querySelector('.btnSubirUsuario').addEventListener('click', function (){
-                //
-                console.log('le diste click a subir usuario');
-            })
-        }
+            document.querySelector('.btnSubirUsuario').addEventListener('click', async function (){
+                // Crear objeto usuario con los valores de los campos
+                const nuevoUsuario = {
+                    nombre: document.getElementById('nombre').value.trim(),
+                    apellido: document.getElementById('apellido').value.trim(),
+                    direccion: document.getElementById('direccion').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    password: document.getElementById('password').value.trim(),
+                    password2: document.getElementById('password2').value.trim(),
+                    rol_id: document.getElementById('rol_id').value,
+                    fecha_nacimiento: document.getElementById('fecha_nacimiento').value
+                };
+
+                // Validar que no estén vacíos los campos obligatorios
+                if (!nuevoUsuario.nombre || !nuevoUsuario.apellido || !nuevoUsuario.email) {
+                    mostrarAlerta('Error', 'Todos los campos son obligatorios', 'error');
+                    return;
+                }
+
+                if (nuevoUsuario.password != nuevoUsuario.password2){
+                    mostrarAlerta('Error', 'Las contraseñas no coinciden', 'error');
+                    return;
+                }
+
+                // Eliminar password2 antes de enviar al servidor
+                delete nuevoUsuario.password2;
+
+                // Si no hay errores, enviamos los DATOS AL SERVIDOR        
+                try {
+                    // Crear un FormData para enviar los datos
+                    const datos = new FormData();
+                    Object.entries(nuevoUsuario).forEach(([key, value]) => datos.append(key, value));
+                    console.log(datos);
+                    // Enviar petición para agregar usuario
+                    const url = 'http://localhost:3000/api/usuarios/crear';
+                    const respuesta = await fetch(url, {
+                        method: 'POST',
+                        body: datos
+                    });
+            
+                    const resultado = await respuesta.json();
+                    mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+            
+                    // Cierra el modal al guardar
+                    $('#usuariosModal').modal('hide');
+            
+                    // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
+                    await initDatable();
+            
+                } catch (error) {
+                    console.log(error);
+                };
+            });
+        };
 
         //Eliminar usuario
         function confirmarEliminacionUsuario(id){
