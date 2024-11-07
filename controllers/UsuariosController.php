@@ -11,10 +11,8 @@ class UsuariosController {
     public static function index(Router $router) {
 
         is_auth();
-        //tiene_rol('1');
 
         $usuario = Usuario::where('email', $_SESSION['email']);
-        //debuguear($usuario);
 
         $alertas = [];
 
@@ -29,17 +27,5 @@ class UsuariosController {
             'informacion' => $informacion_hotel,
             'nombre_hotel' => $nombre_hotel
         ]);
-    }
-
-    public static function eliminar(){
-
-        is_auth();
-
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $usuario = Usuario::find($_POST['id']);
-            $usuario->eliminar();
-
-            header('Location: /admin/usuarios');
-        }
     }
 }

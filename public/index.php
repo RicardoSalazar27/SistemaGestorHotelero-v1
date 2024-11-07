@@ -14,7 +14,6 @@ use Controllers\UsuariosController;
 
 $router = new Router();
 
-
 // Login
 $router->get('/login', [AuthController::class, 'login']);
 $router->post('/login', [AuthController::class, 'login']);
@@ -39,23 +38,19 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 
 // Are de Administracion
 $router->get('/admin/index', [DashboardController::class, 'index']);
-
 $router->get('/admin/configuracion/informacion', [informacionController::class, 'index']);
-
 $router->get('/admin/usuarios', [UsuariosController::class, 'index']);
-$router->post('/admin/usuarios/eliminar', [UsuariosController::class, 'eliminar']);
-
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
-$router->post('/admin/clientes/crear', [ClientesController::class, 'crear']);
-$router->post('/admin/clientes/eliminar', [ClientesController::class, 'eliminar']);
 
 
-// API'S
+// -------- API'S --------
+// --- Usuarios ----
 $router->get('/api/usuarios/listar', [APIUsuarios::class, 'listar']);
 $router->post('/api/usuarios/crear', [APIUsuarios::class, 'crear']);
 $router->post('/api/usuarios/actualizar', [APIUsuarios::class, 'actualizar']);
 $router->post('/api/usuarios/eliminar', [APIUsuarios::class, 'eliminar']);
 
+// --- Clientes ----
 $router->get('/api/clientes/listar', [APIClientes::class, 'listar']);
 $router->post('/api/clientes/crear', [APIClientes::class, 'crear']);
 $router->post('/api/clientes/actualizar', [APIClientes::class, 'actualizar']);
