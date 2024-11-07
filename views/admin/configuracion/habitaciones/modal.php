@@ -16,57 +16,71 @@
                     class="form-control"
                     id="nombre"
                     name="nombre"
-                    placeholder="Tu Nombre"
+                    placeholder="Nombre De Habitacion Ej. 101"
                 />
             </div>
             <div class="form-group">
-                <label for="apellidos">Apellidos</label>
+                <label for="nivel_id">Nivel</label>
+                <select class="form-control" id="nivel_id" name="nivel_id">
+                    <?php 
+                        foreach($niveles as $nivel){
+                            ?>
+                                <option value="<?php echo $nivel->numero?>"><?php echo $nivel->nombre;?></option>
+                            <?php
+                        }
+                    ?>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="categoria_id">Categoria</label>
+                <select class="form-control" id="categoria_id" name="categoria_id">
+                    <?php 
+                        foreach($categorias as $categoria){
+                            ?>
+                                <option value="<?php echo $categoria->numero?>"><?php echo $categoria->nombre;?></option>
+                            <?php
+                        }
+                    ?>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="precio">Precio</label>
+                <input 
+                    type="number"
+                    class="form-control"
+                    id="precio"
+                    name="precio"
+                    min="0"
+                    placeholder="Costo de la habitacion"
+                />
+            </div>
+            <div class="form-group">
+                <label for="tarifa">Tarifa</label>
+                <input 
+                    type="number"
+                    class="form-control"
+                    id="tarifa"
+                    name="tarifa"
+                    min="0"
+                    placeholder="Tarifa"
+                />
+            </div>
+            <div class="form-group">
+                <label for="detalles">Descripcion De La Habitación</label>
                 <input 
                     type="text"
                     class="form-control"
-                    id="apellidos"
-                    name="apellidos"
-                    placeholder="Tus Apellidos"
+                    id="detalles"
+                    name="detalles"
+                    placeholder="Ej. Cama para 3 personas con balcon..."
                 />
             </div>
             <div class="form-group">
-                <label for="correo">Correo</label>
-                <input 
-                    type="email"
-                    class="form-control"
-                    id="correo"
-                    name="correo"
-                    placeholder="Tu Correo"
-                />
-            </div>
-            <div class="form-group">
-                <label for="telefono">Telefono</label>
-                <input 
-                    type="text"
-                    class="form-control"
-                    id="telefono"
-                    name="telefono"
-                    placeholder="Tu Telefono"
-                />
-            </div>
-            <div class="form-group">
-                <label for="documento_identidad">DNI</label>
-                <input 
-                    type="text"
-                    class="form-control"
-                    id="documento_identidad"
-                    name="documento_identidad"
-                    placeholder="Tu DNI"
-                />
-            </div>
-            <div class="form-group">
-                <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-                <input 
-                    type="date"
-                    class="form-control"
-                    id="fecha_nacimiento"
-                    name="fecha_nacimiento"
-                />
+                <label for="estatus">Estatus</label>
+                <select class="form-control" id="estatus" name="estatus">
+                    <option value="1">Activo</option>
+                    <option value="2">Desactivado</option>
+                 </select>
             </div>
 
             <!-- Botones en el formulario -->

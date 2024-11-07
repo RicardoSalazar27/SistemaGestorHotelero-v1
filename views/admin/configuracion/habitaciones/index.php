@@ -40,8 +40,6 @@
                                     <th>Tarifa</th>
                                     <th>Detalles</th>
                                     <th>Estatus</th>
-                                    <th>Rol</th>
-                                    <th>Estatus</th>
                                     <th>Acciones</th>
                                  
                                 </tr>
