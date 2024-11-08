@@ -74,7 +74,7 @@
         dataTableInit = true;  // Marca que la DataTable fue inicializada
     }
 
-    // Función para listar los usuarios
+    // Función para listar los clientes
     async function listarClients() {
         try {
             const url = 'http://localhost:3000/api/clientes/listar';

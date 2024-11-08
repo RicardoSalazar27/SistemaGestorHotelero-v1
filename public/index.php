@@ -2,7 +2,10 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\APICategorias;
 use Controllers\APIClientes;
+use Controllers\APIHabitaciones;
+use Controllers\APINiveles;
 use Controllers\APIUsuarios;
 use MVC\Router;
 use Controllers\AuthController;
@@ -56,5 +59,12 @@ $router->get('/api/clientes/listar', [APIClientes::class, 'listar']);
 $router->post('/api/clientes/crear', [APIClientes::class, 'crear']);
 $router->post('/api/clientes/actualizar', [APIClientes::class, 'actualizar']);
 $router->post('/api/clientes/eliminar', [APIClientes::class, 'eliminar']);
+
+// --- Habitaciones ---
+$router->get('/api/habitaciones/listar', [APIHabitaciones::class, 'listar']);
+
+// --- Niveles ---
+$router->get('/api/niveles/listar', [APINiveles::class, 'listar']);
+$router->get('/api/categorias/listar', [APICategorias::class, 'listar']);
 
 $router->comprobarRutas();

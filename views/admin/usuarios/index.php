@@ -47,7 +47,7 @@
                                     <th class="text-center">confirmado</th>
                                     <th>Passord Nuevo</th>
                                     <th>Password Actual</th>
-                                    <th>Acciones</th>
+                                    <th class="no-export">Acciones</th>
                                  
                                 </tr>
                             </thead>

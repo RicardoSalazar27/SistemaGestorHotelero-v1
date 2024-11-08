@@ -37,11 +37,10 @@
                                     <th>Nivel</th>
                                     <th>Categoria</th>
                                     <th>Precio</th>
-                                    <th>Tarifa</th>
+                                    <th class="no-export">Tarifa</th>
                                     <th>Detalles</th>
                                     <th>Estatus</th>
-                                    <th>Acciones</th>
-                                 
+                                    <th class="no-export">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody_habitaciones"></tbody>
