@@ -190,7 +190,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary btn-actualizarCliente" data-id="${habitacion.id}">Guardar</button>
+                                                <button type="button" class="btn btn-primary btn-actualizarHabitacion" data-id="${habitacion.id}">Guardar</button>
                                             </div>
                                         </form>
                                     </div>
@@ -206,10 +206,75 @@
                 `;
                 tableBody.appendChild(row);
             });
+
+            // Delegación para actualizar habitacion
+            tableBody.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-actualizarHabitacion')) {
+                    const habitacioniD = e.target.getAttribute('data-id');
+                    actualizarHabitacion(habitacioniD);
+                }
+            // Delegación para eliminar habitacion
+                if (e.target.classList.contains('btn-eliminarHabitacion')) {
+                    const habitacionId = e.target.getAttribute('data-id');
+                    confirmarEliminacion(habitacionId);
+                }
+            });
+
+            // Subir actualización del cliente
+            async function actualizarHabitacion(id) {
+                const habitacion = {
+                    id,
+                    nombre: document.querySelector(`#nombre${id}`).value.trim(),
+                    nivel_id: document.querySelector(`#nivel_id${id}`).value.trim(),
+                    categoria_id: document.querySelector(`#categoria_id${id}`).value.trim(),
+                    precio: document.querySelector(`#precio${id}`).value.trim(),
+                    detalles: document.querySelector(`#detalles${id}`).value.trim(),
+                    estatus: document.querySelector(`#estatus${id}`).value
+                };
+                await subirActualizacionHabitacion(habitacion);  // Envía los datos para actualización
+            }
+
+            async function subirActualizacionHabitacion(habitacion) {
+                const datos = new FormData();
+                Object.entries(habitacion).forEach(([key, value]) => datos.append(key, value));
+
+                try {
+                    const url = 'http://localhost:3000/api/habitaciones/actualizar';
+                    const respuesta = await fetch(url, {
+                        method: 'POST',
+                        body: datos
+                    });
+            
+                    const resultado = await respuesta.json();
+                    mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+            
+                    // Cerrar el modal inmediatamente
+                    const modal = document.querySelector(`#editarHabitacionModal${habitacion.id}`);
+                    if (modal) {
+                        $(modal).modal('hide');
+                    }
+            
+                    // Llama a listarClients para actualizar los datos sin destruir DataTable
+                    await initDataTable();
+            
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+
         } catch (error) {
             console.log(error);
         }
     }
-    
+
+    function mostrarAlerta(titulo, mensaje, tipo) {
+        Swal.fire({
+            icon: tipo,
+            title: titulo,
+            text: mensaje,
+        }).then(() => {
+            $('.modal').modal('hide'); // Cierra todos los modales activos
+        });
+    }  
 
 })();

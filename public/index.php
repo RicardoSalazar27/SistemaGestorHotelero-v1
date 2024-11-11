@@ -62,6 +62,7 @@ $router->post('/api/clientes/eliminar', [APIClientes::class, 'eliminar']);
 
 // --- Habitaciones ---
 $router->get('/api/habitaciones/listar', [APIHabitaciones::class, 'listar']);
+$router->post('/api/habitaciones/actualizar', [APIHabitaciones::class, 'actualizar']);
 
 // --- Niveles ---
 $router->get('/api/niveles/listar', [APINiveles::class, 'listar']);
