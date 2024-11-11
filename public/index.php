@@ -72,6 +72,10 @@ $router->post('/api/habitaciones/crear', [APIHabitaciones::class, 'crear']);
 
 // --- Niveles ---
 $router->get('/api/niveles/listar', [APINiveles::class, 'listar']);
+
+// --- Niveles ---
 $router->get('/api/categorias/listar', [APICategorias::class, 'listar']);
+$router->post('/api/categorias/actualizar', [APICategorias::class, 'actualizar']);
+$router->post('/api/categorias/eliminar', [APICategorias::class, 'eliminar']);
 
 $router->comprobarRutas();

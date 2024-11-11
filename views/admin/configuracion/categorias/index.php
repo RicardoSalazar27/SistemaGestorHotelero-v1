@@ -34,7 +34,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nombre</th>
-                                    <th>Capacidad Max.</th>
+                                    <th class="text-center">Capacidad Max.</th>
                                     <th>Estatus</th>
                                     <th class="no-export">Acciones</th>
                                 </tr>

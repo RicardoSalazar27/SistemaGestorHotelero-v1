@@ -343,7 +343,6 @@
             
                     // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
                     await initDataTable();
-                          initDatable
 
             } catch (error) {
                 console.log(error);
