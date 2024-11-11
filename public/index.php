@@ -9,10 +9,12 @@ use Controllers\APINiveles;
 use Controllers\APIUsuarios;
 use MVC\Router;
 use Controllers\AuthController;
+use Controllers\CategoriasController;
 use Controllers\ClientesController;
 use Controllers\DashboardController;
 use Controllers\HabitacionesController;
 use Controllers\informacionController;
+use Controllers\NivelesController;
 use Controllers\UsuariosController;
 
 $router = new Router();
@@ -43,6 +45,8 @@ $router->get('/confirmar-cuenta', [AuthController::class, 'confirmar']);
 $router->get('/admin/index', [DashboardController::class, 'index']);
 $router->get('/admin/configuracion/informacion', [informacionController::class, 'index']);
 $router->get('/admin/configuracion/habitaciones', [HabitacionesController::class, 'index']);
+$router->get('/admin/configuracion/categorias', [CategoriasController::class, 'index']);
+$router->get('/admin/configuracion/niveles', [NivelesController::class, 'index']);
 $router->get('/admin/usuarios', [UsuariosController::class, 'index']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
 
