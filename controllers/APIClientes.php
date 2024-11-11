@@ -84,7 +84,7 @@ class APIClientes {
                 $respuesta = [
                     'tipo' => 'error',
                     'titulo' => 'Ooops...',
-                    'mensaje' => 'Hubo un error al eliminar  el cliente'
+                    'mensaje' => 'Hubo un error al eliminar el cliente'
                 ];
                 echo json_encode($respuesta);
                 return;

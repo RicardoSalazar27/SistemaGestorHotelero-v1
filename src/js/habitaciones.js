@@ -265,6 +265,42 @@
         } catch (error) {
             console.log(error);
         }
+
+        function confirmarEliminacion(id){
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {//result.isConfirmed verifica si el usuario ha hecho clic en "Sí, eliminar".
+                    try {
+                        const datos = new FormData();
+                        datos.append('id', id);
+
+                        const url = `http://localhost:3000/api/habitaciones/eliminar`;
+                        const respuesta = await fetch(url, {
+                            method: 'POST',
+                            body: datos
+                        });
+                        
+                        const resultado = await respuesta.json();
+                        mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+                        
+                        if (resultado.tipo === 'success') { //l servidor indica que la eliminación fue exitosa
+                            await initDataTable();
+                        }
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            });   
+        }
+        
     }
 
     function mostrarAlerta(titulo, mensaje, tipo) {
