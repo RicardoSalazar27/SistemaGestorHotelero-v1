@@ -25,7 +25,7 @@
                     <?php 
                         foreach($niveles as $nivel){
                             ?>
-                                <option value="<?php echo $nivel->numero?>"><?php echo $nivel->nombre;?></option>
+                                <option value="<?php echo $nivel->id?>"><?php echo $nivel->nombre;?></option>
                             <?php
                         }
                     ?>
@@ -37,7 +37,7 @@
                     <?php 
                         foreach($categorias as $categoria){
                             ?>
-                                <option value="<?php echo $categoria->numero?>"><?php echo $categoria->nombre;?></option>
+                                <option value="<?php echo $categoria->id?>"><?php echo $categoria->nombre;?></option>
                             <?php
                         }
                     ?>

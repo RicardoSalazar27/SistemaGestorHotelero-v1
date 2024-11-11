@@ -300,7 +300,55 @@
                 }
             });   
         }
-        
+    }
+
+    const botonSubirHabitacion = document.querySelector('.btnSubirHabitacion');
+    if(botonSubirHabitacion){
+        document.querySelector('.btnSubirHabitacion').addEventListener('click',async function (){
+            // Crear objeto habitacion con los valores de los campos
+            const nuevaHabitacion = {
+                nombre: document.getElementById('nombre').value.trim(),
+                nivel_id: document.getElementById('nivel_id').value,
+                categoria_id: document.getElementById('categoria_id').value,
+                precio : document.getElementById('precio').value,
+                tarifa : document.getElementById('tarifa').value,
+                detalles : document.getElementById('detalles').value,
+                estatus : document.getElementById('estatus').value
+            };
+
+            // Validar que no estén vacíos los campos obligatorios
+            if (!nuevaHabitacion.nombre || !nuevaHabitacion.nivel_id || !nuevaHabitacion.categoria_id || !nuevaHabitacion.precio || !nuevaHabitacion.detalles) {
+                mostrarAlerta('Error', 'Todos los campos son obligatorios', 'error');
+                return;
+            }
+
+            // Si no hay errores, enviamos los DATOS AL SERVIDOR  
+            try {
+                // Crear un FormData para enviar los datos
+                const datos = new FormData();
+                Object.entries(nuevaHabitacion).forEach(([key, value]) => datos.append(key, value));
+
+                // Enviar petición para agregar usuario
+                const url = 'http://localhost:3000/api/habitaciones/crear';
+                const respuesta = await fetch(url, {
+                    method: 'POST',
+                    body: datos
+                });
+
+                const resultado = await respuesta.json();
+                    mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+            
+                    // Cierra el modal al guardar
+                    $('#habitacionesModal').modal('hide');
+            
+                    // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
+                    await initDataTable();
+                          initDatable
+
+            } catch (error) {
+                console.log(error);
+            }
+        });
     }
 
     function mostrarAlerta(titulo, mensaje, tipo) {

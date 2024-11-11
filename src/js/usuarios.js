@@ -1,7 +1,5 @@
 (function (){
 
-    console.log('hola');
-
     let dataTable;
     let dataTableInit = false;
 
@@ -61,10 +59,10 @@
     };
 
     //Ejecutar Funciones
-    initDatable();
+    initDataTable();
 
     //Inicializamos DataTable
-    async function initDatable(){
+    async function initDataTable(){
         if(dataTableInit){
             dataTable.destroy(); //Destruye la tabla si ya existe previamente
         }
@@ -257,7 +255,7 @@
                         }
 
                         // Llama listarUsers para actualizar los datos sin destruir el Datatable
-                        await initDatable();
+                        await initDataTable();
 
                     } catch(error){
                         console.log(error);
@@ -303,7 +301,7 @@
                     // Crear un FormData para enviar los datos
                     const datos = new FormData();
                     Object.entries(nuevoUsuario).forEach(([key, value]) => datos.append(key, value));
-                    console.log(datos);
+        
                     // Enviar petición para agregar usuario
                     const url = 'http://localhost:3000/api/usuarios/crear';
                     const respuesta = await fetch(url, {
@@ -318,7 +316,7 @@
                     $('#usuariosModal').modal('hide');
             
                     // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
-                    await initDatable();
+                    await initDataTable();
             
                 } catch (error) {
                     console.log(error);
@@ -354,7 +352,7 @@
                         
                         if (resultado.tipo === 'success') { //el servidor indica que la eliminación fue exitosa
                             // Llama listarUsers para actualizar los datos sin destruir el Datatable
-                            await initDatable();
+                            await initDataTable();
                         }
                     } catch (error) {
                         console.error(error);
