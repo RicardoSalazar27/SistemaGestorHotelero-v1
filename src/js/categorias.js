@@ -235,7 +235,7 @@
                         const resultado = await respuesta.json();
                         mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
                         
-                        if (resultado.tipo === 'success') { //l servidor indica que la eliminación fue exitosa
+                        if (resultado.tipo === 'success') { //El servidor indica que la eliminación fue exitosa
                             await initDataTable();
                         }
                     } catch (error) {
@@ -244,6 +244,53 @@
                 }
             });   
         }
+    }
+
+    // Crear Nueva Categoria
+    const botonSubirCategoria = document.querySelector('.btnSubirCategoria');
+    if(botonSubirCategoria){
+        botonSubirCategoria.addEventListener('click', async function (){
+            //Crear objeto categoria con los valores de los campos del modal
+            const nuevaCategoria = {
+                nombre : document.getElementById('nombre').value.trim(),
+                capacidad_maxima : document.getElementById('capacidad_maxima').value.trim(),
+                estatus : document.getElementById('estatus').value
+            };
+
+            console.log(nuevaCategoria);
+
+            //Validar que no esten vacios los campos obligatorios
+            if(!nuevaCategoria.nombre || !nuevaCategoria.capacidad_maxima){
+                mostrarAlerta('Error', 'Todos los campos son oblighatorios', 'error');
+                return;
+            }
+
+            // Si no hay errores, enviamos DATOS AL SERVIDOR
+            try {
+                //Crear un FormData para enviar los datos
+                const datos = new FormData();
+                Object.entries(nuevaCategoria).forEach(([key, value]) => datos.append(key, value));
+
+                // Enviar peticion para agregar la categoria
+                const url = 'http://localhost:3000/api/categorias/crear';
+                const respuesta = await fetch(url, {
+                    method: 'POST',
+                    body: datos
+                }); 
+
+                const resultado = await respuesta.json();
+                mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+
+                // Cierra el modal al guardar
+                $('#categoriasModal').modal('hide');
+            
+                // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
+                await initDataTable();
+
+            } catch (error) {
+                console.log(error);
+            }
+        });
     }
 
     function mostrarAlerta(titulo, mensaje, tipo) {

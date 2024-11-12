@@ -328,7 +328,7 @@
                 const datos = new FormData();
                 Object.entries(nuevaHabitacion).forEach(([key, value]) => datos.append(key, value));
 
-                // Enviar petición para agregar usuario
+                // Enviar petición para agregar habitacion
                 const url = 'http://localhost:3000/api/habitaciones/crear';
                 const respuesta = await fetch(url, {
                     method: 'POST',
@@ -336,13 +336,13 @@
                 });
 
                 const resultado = await respuesta.json();
-                    mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
+                mostrarAlerta(resultado.titulo, resultado.mensaje, resultado.tipo);
             
-                    // Cierra el modal al guardar
-                    $('#habitacionesModal').modal('hide');
+                // Cierra el modal al guardar
+                $('#habitacionesModal').modal('hide');
             
-                    // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
-                    await initDataTable();
+                // Vuelve a cargar los datos para reflejar el nuevo usuario en la tabla
+                await initDataTable();
 
             } catch (error) {
                 console.log(error);

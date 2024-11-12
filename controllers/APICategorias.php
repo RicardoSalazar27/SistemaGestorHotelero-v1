@@ -37,6 +37,45 @@ class APICategorias {
         }
     }
 
+    public static function crear() {
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+            $categoriaExistente = Categoria::where('nombre', $_POST['nombre']); 
+            
+            if($categoriaExistente) {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'titulo' => 'Ooops...',
+                    'mensaje' => 'La Categoria ya existe'
+                ];
+                echo json_encode($respuesta);
+                return;
+            } 
+    
+            // Crear un nuevo cliente
+            $categoria = new Categoria();
+            $categoria->sincronizar($_POST);
+            $resultado = $categoria->guardar();
+    
+            if ($resultado) {
+                $respuesta = [
+                    'tipo' => 'success',
+                    'titulo' => 'Creado',
+                    'mensaje' => 'Creado Correctamente'
+                ];
+            } else {
+                $respuesta = [
+                    'tipo' => 'error',
+                    'titulo' => 'Error',
+                    'mensaje' => 'Hubo un problema al crear la categoria'
+                ];
+            }
+            
+            echo json_encode($respuesta);
+        }
+    }
+
     public static function eliminar(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $categoria = Categoria::where('id', $_POST['id']);

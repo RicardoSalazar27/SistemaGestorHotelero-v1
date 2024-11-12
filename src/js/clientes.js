@@ -257,6 +257,7 @@
         }
     }
 
+    // Crear Cliente Nuevo
     const botonSubirCliente = document.querySelector('.btnSubirCliente');
     if(botonSubirCliente){
         document.querySelector('.btnSubirCliente').addEventListener('click', async function () {

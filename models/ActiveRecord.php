@@ -149,25 +149,24 @@ class ActiveRecord {
         return array_shift($total);
     }
 
-    // crea un nuevo registro
+    // Crea un nuevo registro
     public function crear() {
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
 
         // Insertar en la base de datos
-        $query = " INSERT INTO " . static::$tabla . " ( ";
+        $query = "INSERT INTO " . static::$tabla . " (";
         $query .= join(', ', array_keys($atributos));
-        $query .= " ) VALUES (' "; 
+        $query .= ") VALUES ('";
         $query .= join("', '", array_values($atributos));
-        $query .= " ') ";
-
-        //debuguear($query); // Descomentar si no te funciona algo
+        $query .= "')";
+        //debuguear($query);
 
         // Resultado de la consulta
         $resultado = self::$db->query($query);
         return [
-           'resultado' =>  $resultado,
-           'id' => self::$db->insert_id
+            'resultado' => $resultado,
+            'id' => self::$db->insert_id
         ];
     }
 
