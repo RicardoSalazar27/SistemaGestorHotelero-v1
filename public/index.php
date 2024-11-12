@@ -70,13 +70,16 @@ $router->post('/api/habitaciones/actualizar', [APIHabitaciones::class, 'actualiz
 $router->post('/api/habitaciones/eliminar', [APIHabitaciones::class, 'eliminar']);
 $router->post('/api/habitaciones/crear', [APIHabitaciones::class, 'crear']);
 
-// --- Niveles ---
-$router->get('/api/niveles/listar', [APINiveles::class, 'listar']);
-
 // --- Categorias ---
 $router->get('/api/categorias/listar', [APICategorias::class, 'listar']);
 $router->post('/api/categorias/actualizar', [APICategorias::class, 'actualizar']);
 $router->post('/api/categorias/eliminar', [APICategorias::class, 'eliminar']);
 $router->post('/api/categorias/crear', [APICategorias::class, 'crear']);
+
+// --- Niveles ---
+$router->get('/api/niveles/listar', [APINiveles::class, 'listar']);
+$router->post('/api/niveles/actualizar', [APINiveles::class, 'actualizar']);
+$router->post('/api/niveles/crear', [APINiveles::class, 'crear']);
+$router->post('/api/niveles/eliminar', [APINiveles::class, 'eliminar']);
 
 $router->comprobarRutas();

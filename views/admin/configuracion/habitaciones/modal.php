@@ -79,7 +79,7 @@
                 <label for="estatus">Estatus</label>
                 <select class="form-control" id="estatus" name="estatus">
                     <option value="1">Activo</option>
-                    <option value="2">Desactivado</option>
+                    <option value="0">Desactivado</option>
                  </select>
             </div>
 
