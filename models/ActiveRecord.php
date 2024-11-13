@@ -133,11 +133,18 @@ class ActiveRecord {
         return $resultado;
     }
 
-    // Busqueda Where con Columna 
+    // Busqueda Where con Columna (retorna el primer valor del arreglo)
     public static function where($columna, $valor) {
         $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
+    }
+
+    // Busqueda WhereAll c(retorna todo el arreglo de objetos)
+    public static function whereAll($columna, $valor) {
+        $query = "SELECT * FROM " . static::$tabla . " WHERE $columna = '$valor'";
+        $resultado = self::consultarSQL($query);
+        return $resultado;
     }
 
     // Traer un total de registro

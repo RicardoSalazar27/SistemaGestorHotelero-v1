@@ -2,8 +2,9 @@
 
 namespace Controllers;
 
-use Model\Cliente;
+use Model\Habitacion;
 use Model\InformacionHotel;
+use Model\Nivel;
 use Model\Usuario;
 use MVC\Router;
 

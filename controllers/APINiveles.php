@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Model\Habitacion;
 use Model\Nivel;
 
 class APINiveles {
@@ -26,6 +27,27 @@ class APINiveles {
 
             // Todo bien actualizar el nivel
             $nivel->sincronizar($_POST);
+            
+            if($nivel->estatus == '0') {
+                // Seleccionar las habitaciones correspondientes al nivel
+                $habitaciones = Habitacion::whereAll('nivel_id', $nivel->id);
+            
+                // Cambiar el estatus de cada habitación a '0' (desactivado)
+                foreach($habitaciones as $habitacion) {
+                    $habitacion->estatus = '0';
+                    $habitacion->guardar(); // Método para actualizar en la base de datos
+                }
+            } else if($nivel->estatus == '1') {
+                // Seleccionar las habitaciones correspondientes al nivel
+                $habitaciones = Habitacion::whereAll('nivel_id', $nivel->id);
+            
+                // Cambiar el estatus de cada habitación a '1' (activado)
+                foreach($habitaciones as $habitacion) {
+                    $habitacion->estatus = '1';
+                    $habitacion->guardar(); // Método para actualizar en la base de datos
+                }
+            }
+            
             $resultado = $nivel->guardar();            
             $respuesta = [
                 'tipo' => 'success',
