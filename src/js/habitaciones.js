@@ -54,7 +54,7 @@
         ],
         columnDefs: [
             { orderable: false, targets: [6,8] },  // Desactiva la ordenación en la columna 8 (índice 7)
-            { visible: false, targets: [5] }
+            { visible: false, targets: [5,8] }
         ],
     };
 
@@ -138,6 +138,7 @@
                     <td>${habitacion.tarifa}</td>
                     <td>${habitacion.detalles}</td>
                     <td>${estatusDictionary[habitacion.estatus]}</td>
+                    <td>${habitacion.estado_id}</td>
                     <td>
                         <!-- Botón de editar que abre el modal -->
                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editarHabitacionModal${habitacion.id}">

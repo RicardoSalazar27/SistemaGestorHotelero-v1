@@ -40,6 +40,7 @@
                                     <th class="no-export">Tarifa</th>
                                     <th>Detalles</th>
                                     <th>Estatus</th>
+                                    <th>Estado</th>
                                     <th class="no-export">Acciones</th>
                                 </tr>
                             </thead>

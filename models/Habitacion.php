@@ -5,7 +5,7 @@ namespace Model;
 class Habitacion extends ActiveRecord{
 
     public static $tabla = 'habitaciones';
-    public static $columnasDB = ['id', 'nombre', 'nivel_id', 'categoria_id', 'precio', 'tarifa', 'detalles', 'estatus'];
+    public static $columnasDB = ['id', 'nombre', 'nivel_id', 'categoria_id', 'precio', 'tarifa', 'detalles', 'estatus', 'estado_id'];
 
     public $id;
     public $nombre;
@@ -25,6 +25,7 @@ class Habitacion extends ActiveRecord{
         $this->tarifa = $args['tarifa'] ?? '';
         $this->detalles = $args['detalles'] ?? '';
         $this->estatus = $args['estatus'] ?? 1;
+        $this->estado_id = $args['estado_id'] ?? 1;
     }
 
     public function validarDatos(){
