@@ -54,7 +54,7 @@
         ],
         columnDefs: [
             { orderable: false, targets: [6,8] },  // Desactiva la ordenación en la columna 8 (índice 7)
-            { visible: false, targets: [5,8] }
+            { visible: false, targets: [5,8] }  // Oculta columnas de la tabla
         ],
     };
 

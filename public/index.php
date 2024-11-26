@@ -15,6 +15,7 @@ use Controllers\DashboardController;
 use Controllers\HabitacionesController;
 use Controllers\informacionController;
 use Controllers\NivelesController;
+use Controllers\RecepcionController;
 use Controllers\UsuariosController;
 
 $router = new Router();
@@ -49,6 +50,9 @@ $router->get('/admin/configuracion/categorias', [CategoriasController::class, 'i
 $router->get('/admin/configuracion/niveles', [NivelesController::class, 'index']);
 $router->get('/admin/usuarios', [UsuariosController::class, 'index']);
 $router->get('/admin/clientes', [ClientesController::class, 'index']);
+
+//Recepcion
+$router->get('/admin/recepcion', [RecepcionController::class, 'index']);
 
 
 // -------- API'S --------
