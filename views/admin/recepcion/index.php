@@ -64,7 +64,7 @@ use Model\EstadoHabitacion;
                                                     <p><?php echo $estado->nombre_estado; ?></p>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-shopping-cart"></i>
+                                                    <i class="fas fa-<?php echo $estado->icono;?>"></i>
                                                 </div>
                                                 <a href="#" class="small-box-footer" data-id="<?php echo $habitacion->id;?>">
                                                     <?php echo $estado->descripcion; ?> <i class="fas fa-arrow-circle-right"></i>

@@ -6,7 +6,7 @@ class EstadoHabitacion extends ActiveRecord
 {
 
     public static $tabla = 'estado_habitacion';
-    public static $columnasDB = ['id', 'nombre_estado', 'descripcion','color'];
+    public static $columnasDB = ['id', 'nombre_estado', 'descripcion', 'color', 'icono'];
 
     public $id;
     public $nombre_estado;
@@ -19,6 +19,7 @@ class EstadoHabitacion extends ActiveRecord
         $this->nombre_estado = $args['nombre_estado'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->color = $args['color'] ?? '';
+        $this->icono = $args['icono'] ?? '';
     }
 
     public function validarDatos()
