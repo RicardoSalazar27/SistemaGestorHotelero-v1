@@ -1,6 +1,7 @@
 <?php
 use Model\Categoria;
-use Model\EstadoHabitacion;?>
+use Model\EstadoHabitacion;
+?>
 
 <section class="content-header">
     <div class="container-fluid">
@@ -52,16 +53,20 @@ use Model\EstadoHabitacion;?>
                                     <?php foreach ($habitaciones as $habitacion):
                                         $estado = EstadoHabitacion::find($habitacion->estado_id);
                                         $categoria = Categoria::find($habitacion->categoria_id); ?>
-                                        <div class="col-lg-3 col-6">
-                                            <div class="small-box bg-<?php echo $estado->color; ?>">
+                                        <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-4 col-12">
+                                            <div class="small-box bg-<?php echo $estado->color; ?>" 
+                                                 data-id="<?php echo $habitacion->id; ?>" 
+                                                 data-nombre="<?php echo $habitacion->nombre; ?>"
+                                                 data-categoria="<?php echo $categoria->nombre; ?>"><!--Estandar, Deluxe, Suit-->
                                                 <div class="inner">
                                                     <h3><?php echo $habitacion->nombre; ?></h3>
-                                                    <p><?php echo $categoria->nombre; ?></p>
+                                                    <h4><?php echo $categoria->nombre; ?></h4>
+                                                    <p><?php echo $estado->nombre_estado; ?></p>
                                                 </div>
                                                 <div class="icon">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </div>
-                                                <a href="#" class="small-box-footer">
+                                                <a href="#" class="small-box-footer" data-id="<?php echo $habitacion->id;?>">
                                                     <?php echo $estado->descripcion; ?> <i class="fas fa-arrow-circle-right"></i>
                                                 </a>
                                             </div>
@@ -79,15 +84,20 @@ use Model\EstadoHabitacion;?>
                                                 $estado = EstadoHabitacion::find($habitacion->estado_id);
                                                 $categoria = Categoria::find($habitacion->categoria_id); ?>
                                                 <div class="col-lg-3 col-6">
-                                                    <div class="small-box bg-<?php echo $estado->color; ?>">
+                                                    <div class="small-box bg-<?php echo $estado->color; ?>" 
+                                                         data-id="<?php echo $habitacion->id; ?>" 
+                                                         data-nombre="<?php echo $habitacion->nombre; ?>" 
+                                                         data-estado="<?php echo $estado->descripcion; ?>" 
+                                                         data-categoria="<?php echo $categoria->nombre; ?>">
                                                         <div class="inner">
                                                             <h3><?php echo $habitacion->nombre; ?></h3>
-                                                            <p><?php echo $categoria->nombre; ?></p>
+                                                            <h4><?php echo $categoria->nombre; ?></h4>
+                                                            <p><?php echo $estado->nombre_estado; ?></p>
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-shopping-cart"></i>
                                                         </div>
-                                                        <a href="#" class="small-box-footer">
+                                                        <a href="#" class="small-box-footer" data-id="<?php echo $habitacion->id;?>">
                                                             <?php echo $estado->descripcion; ?> <i class="fas fa-arrow-circle-right"></i>
                                                         </a>
                                                     </div>
