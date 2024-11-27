@@ -1,7 +1,7 @@
 <?php
-
 use Model\Categoria;
-use Model\EstadoHabitacion; ?>;
+use Model\EstadoHabitacion;?>
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -14,7 +14,7 @@ use Model\EstadoHabitacion; ?>;
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/admin/index">Inicio</a></li>
-                    <li class="breadcrumb-item active">Recepcion</li>
+                    <li class="breadcrumb-item active">Recepción</li>
                 </ol>
             </div>
         </div>
@@ -24,232 +24,83 @@ use Model\EstadoHabitacion; ?>;
 <!--Section Content-->
 <section class="content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary card-tabs">
                     <div class="card-header p-0 pt-1">
                         <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <!-- Pestaña 'Todos' -->
                             <li class="nav-item">
                                 <a class="nav-link active" id="custom-tabs-one-todos-tab" data-toggle="pill" href="#custom-tabs-one-todos" role="tab" aria-controls="custom-tabs-one-todos" aria-selected="true">Todos</a>
                             </li>
-                            <?php
-                            foreach ($niveles as $nivel) {
-                            ?>
+                            <!-- Pestañas dinámicas por nivel -->
+                            <?php foreach ($niveles as $nivel): ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-one-<?php echo $nivel->numero; ?>-tab" data-toggle="pill" href="#custom-tabs-one-<?php echo $nivel->numero; ?>" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false"><?php echo $nivel->nombre; ?></a>
+                                    <a class="nav-link" id="custom-tabs-one-<?php echo $nivel->numero; ?>-tab" data-toggle="pill" href="#custom-tabs-one-<?php echo $nivel->numero; ?>" role="tab" aria-controls="custom-tabs-one-<?php echo $nivel->numero; ?>" aria-selected="false">
+                                        <?php echo $nivel->nombre; ?>
+                                    </a>
                                 </li>
-                            <?php
-                            }
-                            ?>
+                            <?php endforeach; ?>
                         </ul>
-                    </div><!-- AQUI ACABA LAS PESTAÑAS DE LOS NIVELES-->
+                    </div>
 
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-one-tabContent">
+                            <!-- Contenido para 'Todos' -->
                             <div class="tab-pane fade show active" id="custom-tabs-one-todos" role="tabpanel" aria-labelledby="custom-tabs-one-todos-tab">
                                 <div class="row">
-                                <?php
-                                foreach ($habitaciones as $habitacion) {
-                                    $estado = EstadoHabitacion::find($habitacion->estado_id);
-                                    $categoria = Categoria::find($habitacion->categoria_id);
-                                    if ($estado) { // Verificamos si el objeto fue encontrado
-                                        ?>
+                                    <?php foreach ($habitaciones as $habitacion):
+                                        $estado = EstadoHabitacion::find($habitacion->estado_id);
+                                        $categoria = Categoria::find($habitacion->categoria_id); ?>
                                         <div class="col-lg-3 col-6">
-                                            <div class="small-box bg-<?php echo $estado->color;?>">
+                                            <div class="small-box bg-<?php echo $estado->color; ?>">
                                                 <div class="inner">
                                                     <h3><?php echo $habitacion->nombre; ?></h3>
-                                                    <p><?php echo $categoria->nombre; ?></p> <!-- Accedemos a la propiedad del objeto -->
+                                                    <p><?php echo $categoria->nombre; ?></p>
                                                 </div>
                                                 <div class="icon">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </div>
                                                 <a href="#" class="small-box-footer">
-                                                    <?php echo $estado->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
+                                                    <?php echo $estado->descripcion; ?> <i class="fas fa-arrow-circle-right"></i>
                                                 </a>
                                             </div>
                                         </div>
-                                    <?php
-                                    } else {
-                                        echo "<p>Error: Estado de habitación no encontrado.</p>";
-                                    }
-                                }
-                                ?>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade show" id="custom-tabs-one-1" role="tabpanel" aria-labelledby="custom-tabs-one-1-tab">
-                                <div class="row">
-                                    <?php
-                                    foreach ($habitaciones as $habitacion) {
-                                        if ($habitacion->nivel_id == "1") {
-                                            $habitacion->estado_id = EstadoHabitacion::find($habitacion->estado_id);
-                                    ?>
-                                            <div class="col-lg-3 col-6">
-                                                <!-- small card -->
-                                                <div class="small-box bg-success">
-                                                    <div class="inner">
-                                                        <h3><?php echo $habitacion->nombre; ?></h3>
-                                                        <p><?php echo $habitacion->estado_id->nombre_estado; ?></p>
+                            <!-- Contenido para cada nivel -->
+                            <?php foreach ($niveles as $nivel): ?>
+                                <div class="tab-pane fade" id="custom-tabs-one-<?php echo $nivel->numero; ?>" role="tabpanel" aria-labelledby="custom-tabs-one-<?php echo $nivel->numero; ?>-tab">
+                                    <div class="row">
+                                        <?php foreach ($habitaciones as $habitacion):
+                                            if ($habitacion->nivel_id == $nivel->id):
+                                                $estado = EstadoHabitacion::find($habitacion->estado_id);
+                                                $categoria = Categoria::find($habitacion->categoria_id); ?>
+                                                <div class="col-lg-3 col-6">
+                                                    <div class="small-box bg-<?php echo $estado->color; ?>">
+                                                        <div class="inner">
+                                                            <h3><?php echo $habitacion->nombre; ?></h3>
+                                                            <p><?php echo $categoria->nombre; ?></p>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-shopping-cart"></i>
+                                                        </div>
+                                                        <a href="#" class="small-box-footer">
+                                                            <?php echo $estado->descripcion; ?> <i class="fas fa-arrow-circle-right"></i>
+                                                        </a>
                                                     </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                    </div>
-                                                    <a href="#" class="small-box-footer">
-                                                        <?php echo $habitacion->estado_id->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
-                                                    </a>
                                                 </div>
-                                            </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade show" id="custom-tabs-one-2" role="tabpanel" aria-labelledby="custom-tabs-one-2-tab">
-                                <div class="row">
-                                    <?php
-                                    foreach ($habitaciones as $habitacion) {
-                                        if ($habitacion->nivel_id == "2") {
-                                            $habitacion->estado_id = EstadoHabitacion::find($habitacion->estado_id);
-                                    ?>
-                                            <div class="col-lg-3 col-6">
-                                                <!-- small card -->
-                                                <div class="small-box bg-success">
-                                                    <div class="inner">
-                                                        <h3><?php echo $habitacion->nombre; ?></h3>
-                                                        <p><?php echo $habitacion->estado_id->nombre_estado; ?></p>
-                                                    </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                    </div>
-                                                    <a href="#" class="small-box-footer">
-                                                        <?php echo $habitacion->estado_id->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade show" id="custom-tabs-one-3" role="tabpanel" aria-labelledby="custom-tabs-one-3-tab">
-                                <div class="row">
-                                    <?php
-                                    foreach ($habitaciones as $habitacion) {
-                                        if ($habitacion->nivel_id == "3") {
-                                            $habitacion->estado_id = EstadoHabitacion::find($habitacion->estado_id);
-                                    ?>
-                                            <div class="col-lg-3 col-6">
-                                                <!-- small card -->
-                                                <div class="small-box bg-success">
-                                                    <div class="inner">
-                                                        <h3><?php echo $habitacion->nombre; ?></h3>
-                                                        <p><?php echo $habitacion->estado_id->nombre_estado; ?></p>
-                                                    </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                    </div>
-                                                    <a href="#" class="small-box-footer">
-                                                        <?php echo $habitacion->estado_id->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade show" id="custom-tabs-one-4" role="tabpanel" aria-labelledby="custom-tabs-one-4-tab">
-                                <div class="row">
-                                    <?php
-                                    foreach ($habitaciones as $habitacion) {
-                                        if ($habitacion->nivel_id == "4") {
-                                            $habitacion->estado_id = EstadoHabitacion::find($habitacion->estado_id);
-                                    ?>
-                                            <div class="col-lg-3 col-6">
-                                                <!-- small card -->
-                                                <div class="small-box bg-success">
-                                                    <div class="inner">
-                                                        <h3><?php echo $habitacion->nombre; ?></h3>
-                                                        <p><?php echo $habitacion->estado_id->nombre_estado; ?></p>
-                                                    </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                    </div>
-                                                    <a href="#" class="small-box-footer">
-                                                        <?php echo $habitacion->estado_id->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade show" id="custom-tabs-one-5" role="tabpanel" aria-labelledby="custom-tabs-one-5-tab">
-                                <div class="row">
-                                    <?php
-                                    foreach ($habitaciones as $habitacion) {
-                                        if ($habitacion->nivel_id == "5") {
-                                            $habitacion->estado_id = EstadoHabitacion::find($habitacion->estado_id);
-                                    ?>
-                                            <div class="col-lg-3 col-6">
-                                                <!-- small card -->
-                                                <div class="small-box bg-success">
-                                                    <div class="inner">
-                                                        <h3><?php echo $habitacion->nombre; ?></h3>
-                                                        <p><?php echo $habitacion->estado_id->nombre_estado; ?></p>
-                                                    </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                    </div>
-                                                    <a href="#" class="small-box-footer">
-                                                        <?php echo $habitacion->estado_id->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade show" id="custom-tabs-one-6" role="tabpanel" aria-labelledby="custom-tabs-one-6-tab">
-                                <div class="row">
-                                    <?php
-                                    foreach ($habitaciones as $habitacion) {
-                                        if ($habitacion->nivel_id == "8") {
-                                            $habitacion->estado_id = EstadoHabitacion::find($habitacion->estado_id);
-                                    ?>
-                                            <div class="col-lg-3 col-6">
-                                                <!-- small card -->
-                                                <div class="small-box bg-success">
-                                                    <div class="inner">
-                                                        <h3><?php echo $habitacion->nombre; ?></h3>
-                                                        <p><?php echo $habitacion->estado_id->nombre_estado; ?></p>
-                                                    </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-shopping-cart"></i>
-                                                    </div>
-                                                    <a href="#" class="small-box-footer">
-                                                        <?php echo $habitacion->estado_id->descripcion; ?><i class="fas fa-arrow-circle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-
+                            <?php endforeach; ?>
                         </div>
-                    </div><!--aCABA EL CUERPO DE LAS TARJETAS DE LAS PESTAÑAS DE LOS NIVELES-->
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
