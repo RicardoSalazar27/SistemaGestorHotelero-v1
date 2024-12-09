@@ -57,7 +57,8 @@ use Model\EstadoHabitacion;
                                             <div class="small-box bg-<?php echo $estado->color; ?>" 
                                                  data-id="<?php echo $habitacion->id; ?>" 
                                                  data-nombre="<?php echo $habitacion->nombre; ?>"
-                                                 data-categoria="<?php echo $categoria->nombre; ?>"><!--Estandar, Deluxe, Suit-->
+                                                 data-categoria="<?php echo $categoria->nombre; ?>"
+                                                 data-estado="<?php echo $estado->nombre_estado;?>">
                                                 <div class="inner">
                                                     <h3><?php echo $habitacion->nombre; ?></h3>
                                                     <h4><?php echo $categoria->nombre; ?></h4>

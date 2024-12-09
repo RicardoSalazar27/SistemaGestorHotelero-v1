@@ -39,4 +39,30 @@ class RecepcionController
             'habitaciones' => $habitaciones
         ]);
     }
+
+    public static function actualizarEstado(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $habitacion = Habitacion::find($_POST['id']);
+            if(!$habitacion){
+                $respuesta = [
+                    'tipo' => 'error',
+                    'titulo' => 'Ooops...',
+                    'mensaje' => 'Hubo un error al actualizar el estado'
+                ];
+                echo json_encode($respuesta);
+                return;
+            }
+
+            // Todo bien, actualizar el estado de la habitacion
+            $habitacion->sincronizar($_POST);
+            $habitacion->guardar();
+            $respuesta = [
+                'tipo' => 'success',
+                'titulo' => 'Actualizado',
+                'mensaje' => 'Actualizado Correctamente'
+            ];
+            echo json_encode($respuesta);
+
+        }
+    }
 }

@@ -4,6 +4,7 @@ require_once __DIR__ . '/../includes/app.php';
 
 use Controllers\APICategorias;
 use Controllers\APIClientes;
+use Controllers\APIEstadoHabitacion;
 use Controllers\APIHabitaciones;
 use Controllers\APINiveles;
 use Controllers\APIUsuarios;
@@ -53,6 +54,7 @@ $router->get('/admin/clientes', [ClientesController::class, 'index']);
 
 //Recepcion
 $router->get('/admin/recepcion', [RecepcionController::class, 'index']);
+$router->post('/admin/recepcion/actualizarEstado', [RecepcionController::class, 'actualizarEstado']);
 
 
 // -------- API'S --------
@@ -70,6 +72,7 @@ $router->post('/api/clientes/eliminar', [APIClientes::class, 'eliminar']);
 
 // --- Habitaciones ---
 $router->get('/api/habitaciones/listar', [APIHabitaciones::class, 'listar']);
+$router->get('/api/estadohabitaciones/listar', [APIEstadoHabitacion::class, 'listar']);
 $router->post('/api/habitaciones/actualizar', [APIHabitaciones::class, 'actualizar']);
 $router->post('/api/habitaciones/eliminar', [APIHabitaciones::class, 'eliminar']);
 $router->post('/api/habitaciones/crear', [APIHabitaciones::class, 'crear']);
